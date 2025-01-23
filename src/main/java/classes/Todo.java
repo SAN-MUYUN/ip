@@ -1,4 +1,8 @@
-public class Todo extends Task{
+package classes;
+
+import classes.Task;
+
+public class Todo extends Task {
 
     private static final String SYMBOL = "T";
     public Todo(String description) {

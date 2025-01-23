@@ -1,4 +1,8 @@
-public class Event extends Task{
+package classes;
+
+import classes.Task;
+
+public class Event extends Task {
     private String startTime;
     private String endTime;
     private static final String SYMBOL = "E";

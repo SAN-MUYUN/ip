@@ -1,3 +1,7 @@
+package classes;
+
+import classes.Task;
+
 public class Deadline extends Task {
     private static final String SYMBOL = "D";
     private String deadLine;
