@@ -5,12 +5,12 @@ import classes.Todo;
 import exceptions.NoContentException;
 import exceptions.OutOfListException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MuyunBot {
 
-    private static final Task[] TASKLIST = new Task[100];
-    private static int listLength = 0;
+    private static final ArrayList<Task> TASKLIST = new ArrayList<>();
 
     /**
      * Prints greeting message on commandline
@@ -42,45 +42,44 @@ public class MuyunBot {
      * @param newTask New task to be added to the TASKLIST array.
      */
     private static void addTask(Task newTask) {
-        TASKLIST[listLength] = newTask;
-        listLength++;
+        TASKLIST.add(newTask);
         String text = PrintStyle.indent("new task is here!")
                 + PrintStyle.indent("added: " + newTask.toString())
-                + PrintStyle.indent("now we have " + listLength + " tasks in the list");
+                + PrintStyle.indent("now we have " + TASKLIST.size() + " tasks in the list");
         display(text);
     }
 
     /**
      * Marks the task with index ind in TASKLIST as done. Displays a message after marking as done.
      * @param ind index to be marked as done in the TASKLIST.
-     * @exception Throws exceptions.OutOfListException when index is larger than number of Tasks.
+     * @exception OutOfListException when index is larger than number of Tasks.
      */
     private static void markAsDone(int ind) throws OutOfListException {
-        if (ind >= listLength) {
+        if (ind > TASKLIST.size()) {
             throw new OutOfListException("Task number "
                     + ind
-                    + " is out of the list of size "+ listLength +", please double check your index~");
+                    + " is out of the list of size "+ TASKLIST.size() +", please double check your index~");
         }
-        TASKLIST[ind - 1].markAsDone();
+        TASKLIST.get(ind - 1).markAsDone();
         String text = PrintStyle.indent("well done, 1 task down!\n");
-        text += PrintStyle.indent(TASKLIST[ind - 1].toString());
+        text += PrintStyle.indent(TASKLIST.get(ind - 1).toString());
         display(text);
     }
 
     /**
      * Marks the task with index ind in TASKLIST as undone. Displays a message after that.
      * @param ind index to be marked as undone in the TASKLIST.
-     * @exception Throws exceptions.OutOfListException when index is larger than number of Tasks.
+     * @exception OutOfListException when index is larger than number of Tasks.
      */
     private static void markAsUndone(int ind) throws OutOfListException {
-        if (ind >= listLength) {
+        if (ind > TASKLIST.size()) {
             throw new OutOfListException("index "
                     + ind
                     + " is out of the list, please double check your index~");
         }
-        TASKLIST[ind - 1].markNotDone();
+        TASKLIST.get(ind - 1).markNotDone();
         String text = PrintStyle.indent("oops, seems like this task isn't done yet...\n");
-        text += PrintStyle.indent(TASKLIST[ind - 1].toString());
+        text += PrintStyle.indent(TASKLIST.get(ind - 1).toString());
         display(text);
     }
 
@@ -89,9 +88,9 @@ public class MuyunBot {
      */
     private static void showList() {
         StringBuilder listContent = new StringBuilder();
-        for (int i = 0; i < listLength; i++) {
+        for (int i = 0; i < TASKLIST.size(); i++) {
             listContent.append(PrintStyle.indent(
-                    String.valueOf(i + 1) + ". " + TASKLIST[i].toString()));
+                    String.valueOf(i + 1) + ". " + TASKLIST.get(i).toString()));
         }
         display(listContent.toString());
     }
@@ -180,6 +179,19 @@ public class MuyunBot {
         return new Event(description.toString(), startTime.toString(), endTime.toString());
     }
 
+    private static void delete(int ind) throws OutOfListException{
+        if (ind > TASKLIST.size()) {
+            throw new OutOfListException("index " + ind + " is out of the list,"
+                    + " please double check your index~");
+        }
+        Task toBeRemoved = TASKLIST.get(ind - 1);
+        TASKLIST.remove(ind - 1);
+        String text = PrintStyle.indent("I am removing this task:")
+                + PrintStyle.indent(toBeRemoved.toString())
+                + PrintStyle.indent("Now there are " + TASKLIST.size() + " tasks in the list");
+        display(text);
+    }
+
     private static void run() {
         Scanner scanner = new Scanner(System.in);
         greet();
@@ -190,18 +202,22 @@ public class MuyunBot {
             if (input.equals("list")) {
                 showList();
             } else if (comms[0].equals("mark")) {
-                int ind = Integer.valueOf(comms[1]);
                 try {
+                    int ind = Integer.valueOf(comms[1]);
                     markAsDone(ind);
                 } catch (OutOfListException e) {
                     display(PrintStyle.indent(e.getMessage()));
+                } catch (NumberFormatException e) {
+                    display(PrintStyle.indent("please enter index right after the command 'mark'"));
                 }
             } else if (comms[0].equals("unmark")) {
-                int ind = Integer.valueOf(comms[1]);
                 try {
+                    int ind = Integer.valueOf(comms[1]);
                     markAsUndone(ind);
                 } catch (OutOfListException e) {
                     display(PrintStyle.indent(e.getMessage()));
+                } catch (NumberFormatException e) {
+                    display(PrintStyle.indent("please enter index right after the command 'unmark'"));
                 }
             } else if (comms[0].equals("todo")) {
                 try {
@@ -223,7 +239,15 @@ public class MuyunBot {
                 } catch (NoContentException e) {
                     display(PrintStyle.indent(e.getMessage()));
                 }
-
+            } else if (comms[0].equals("delete")) {
+                try {
+                    int ind = Integer.valueOf(comms[1]);
+                    delete(ind);
+                } catch (OutOfListException e) {
+                    display(PrintStyle.indent(e.getMessage()));
+                } catch (NumberFormatException e) {
+                    display(PrintStyle.indent("please enter index right after command 'delete'"));
+                }
             } else {
                 display(PrintStyle.indent("Sorry, I have not learnt this command yet :("));
             }

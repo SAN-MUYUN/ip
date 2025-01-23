@@ -7,3 +7,4 @@ mark 2
 mark 1
 unmark 1
 list
+delete 2

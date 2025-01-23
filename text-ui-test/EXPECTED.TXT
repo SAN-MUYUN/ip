@@ -4,7 +4,7 @@
     _________
 
     _________
-    Sorry, No such command
+    Sorry, I have not learnt this command yet :(
     _________
 
     _________
@@ -53,5 +53,11 @@
     1. [T][ ] borrow books
     2. [D][X] return books (by: Monday 2pm)
     3. [E][ ] discuss books (from: Monday 3pm to: Tues 2pm)
+    _________
+
+    _________
+    I am removing this task:
+    [D][X] return books (by: Monday 2pm)
+    Now there are 2 tasks in the list
     _________
 
