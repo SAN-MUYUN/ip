@@ -4,8 +4,12 @@ public class PrintStyle {
         return ("    _________"+"\n");
     }
 
+    /**
+     * Adds indentation to a string for formatting.
+     * @param x input string
+     * @return Indented string for formatting
+     */
     public static String indent(String x) {
-//        create indentation on x for display be the bot;
         return ("    " + x + "\n");
     }
 }
