@@ -1,9 +1,9 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MuyunBot {
 
-    private static Task[] taskList = new Task[100];
+    private static final Task[] TASKLIST = new Task[100];
     private static int listLength = 0;
 
     /**
@@ -32,46 +32,48 @@ public class MuyunBot {
     }
 
     /**
-     * Creates a task with input as description. Then add it to the taskList;
-     * @param input description of the new task
+     * Creates a task with input as description. Then add it to the TASKLIST.
+     * @param newTask New task to be added to the TASKLIST array.
      */
-    private static void addTask(String input) {
-        Task newTask = new Task(input);
-        taskList[listLength] = newTask;
+    private static void addTask(Task newTask) {
+        TASKLIST[listLength] = newTask;
         listLength++;
-        display(PrintStyle.indent("added: " + input));
+        String text = PrintStyle.indent("new task is here!")
+                + PrintStyle.indent("added: " + newTask.toString())
+                + PrintStyle.indent("now we have " + listLength + " tasks in the list");
+        display(text);
     }
 
     /**
-     * Marks the task with index ind in taskList as done. Displays a message after marking as done.
-     * @param ind index to be marked as done in the taskList.
+     * Marks the task with index ind in TASKLIST as done. Displays a message after marking as done.
+     * @param ind index to be marked as done in the TASKLIST.
      */
     private static void markAsDone(int ind) {
-        taskList[ind - 1].markAsDone();
+        TASKLIST[ind - 1].markAsDone();
         String text = PrintStyle.indent("well done, 1 task down! \n");
-        text += PrintStyle.indent(taskList[ind - 1].toString());
+        text += PrintStyle.indent(TASKLIST[ind - 1].toString());
         display(text);
     }
 
     /**
-     * Marks the task with index ind in taskList as undone. Displays a message after that.
-     * @param ind index to be marked as undone in the taskList.
+     * Marks the task with index ind in TASKLIST as undone. Displays a message after that.
+     * @param ind index to be marked as undone in the TASKLIST.
      */
     private static void markAsUndone(int ind) {
-        taskList[ind - 1].markNotDone();
+        TASKLIST[ind - 1].markNotDone();
         String text = PrintStyle.indent("oops, seems like this task isn't done yet... \n");
-        text += PrintStyle.indent(taskList[ind - 1].toString());
+        text += PrintStyle.indent(TASKLIST[ind - 1].toString());
         display(text);
     }
 
     /**
-     * display the whole taskList;
+     * display the whole TASKLIST;
      */
     private static void showList() {
         StringBuilder listContent = new StringBuilder();
         for (int i = 0; i < listLength; i++) {
             listContent.append(PrintStyle.indent(
-                    String.valueOf(i + 1) + ". " + taskList[i].toString()));
+                    String.valueOf(i + 1) + ". " + TASKLIST[i].toString()));
         }
         display(listContent.toString());
     }
@@ -84,7 +86,60 @@ public class MuyunBot {
         System.out.println(text);
     }
 
-    public static void main(String[] args) {
+    /**
+     * Creates a new Todo instance using the input from commandline.
+     * @param inputArr array of input received from commandline by the user.
+     * @return Returns the new Todo created.
+     */
+    private static Todo createTodo(String[] inputArr) {
+        StringBuilder descr = new StringBuilder();
+        for(int i = 1; i < inputArr.length; i++) {
+            descr.append(inputArr[i]);
+            descr.append(" ");
+        }
+        return new Todo(descr.toString());
+
+    }
+    
+    private static Deadline createDeadline (String[] inputArr) {
+        int counter = 1;
+        StringBuilder description = new StringBuilder();
+        StringBuilder deadLine = new StringBuilder();
+        while (!inputArr[counter].equals("/by")) {
+            description.append(inputArr[counter] + " ");
+            counter++;
+        }
+        counter++;
+        while (counter < inputArr.length) {
+            deadLine.append(inputArr[counter] + " ");
+            counter++;
+        }
+        return new Deadline(description.toString(), deadLine.toString());
+    }
+
+    private static Event createEvent(String[] inputArr) {
+        int counter = 1;
+        StringBuilder description = new StringBuilder();
+        StringBuilder startTime = new StringBuilder();
+        StringBuilder endTime = new StringBuilder();
+        while (!inputArr[counter].equals("/from")) {
+            description.append(inputArr[counter] + " ");
+            counter++;
+        }
+        counter++;
+        while (!inputArr[counter].equals("/to")) {
+            startTime.append(inputArr[counter] + " ");
+            counter++;
+        }
+        counter++;
+        while(counter < inputArr.length) {
+            endTime.append(inputArr[counter] + " ");
+            counter++;
+        }
+        return new Event(description.toString(), startTime.toString(), endTime.toString());
+    }
+
+    private static void run() {
         Scanner scanner = new Scanner(System.in);
         greet();
         String input = scanner.nextLine();
@@ -99,15 +154,23 @@ public class MuyunBot {
             } else if (comms[0].equals("unmark")) {
                 int ind = Integer.valueOf(comms[1]);
                 markAsUndone(ind);
-            }
-            else {
-                addTask(input);
+            } else if (comms[0].equals("todo")) {
+                addTask(createTodo(comms));
+            } else if (comms[0].equals("deadline")) {
+                addTask(createDeadline(comms));
+            } else if (comms[0].equals("event")) {
+                addTask(createEvent(comms));
+            } else {
+                display(PrintStyle.indent("Sorry, No such command"));
             }
             input = scanner.nextLine();
             comms = input.split(" ");
         }
         quit();
+    }
 
+    public static void main(String[] args) {
+        run();
     }
 
 }
