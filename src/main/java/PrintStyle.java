@@ -1,7 +1,7 @@
 
 public class PrintStyle {
     public static String dashedLines() {
-        return ("    __________\n");
+        return ("    _________"+"\n");
     }
 
     public static String indent(String x) {
