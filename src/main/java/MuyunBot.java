@@ -50,7 +50,7 @@ public class MuyunBot {
      */
     private static void markAsDone(int ind) {
         TASKLIST[ind - 1].markAsDone();
-        String text = PrintStyle.indent("well done, 1 task down! \n");
+        String text = PrintStyle.indent("well done, 1 task down!\n");
         text += PrintStyle.indent(TASKLIST[ind - 1].toString());
         display(text);
     }
@@ -61,7 +61,7 @@ public class MuyunBot {
      */
     private static void markAsUndone(int ind) {
         TASKLIST[ind - 1].markNotDone();
-        String text = PrintStyle.indent("oops, seems like this task isn't done yet... \n");
+        String text = PrintStyle.indent("oops, seems like this task isn't done yet...\n");
         text += PrintStyle.indent(TASKLIST[ind - 1].toString());
         display(text);
     }

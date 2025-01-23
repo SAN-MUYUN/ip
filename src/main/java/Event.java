@@ -5,15 +5,15 @@ public class Event extends Task{
 
     public Event(String description, String startTime, String endTime) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = startTime.trim();
+        this.endTime = endTime.trim();
     }
 
     @Override
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString()
                 + " (from: " + this.startTime
-                + "to: " + this.endTime + "\b)";
+                + " to: " + this.endTime + ")";
     }
 
 
