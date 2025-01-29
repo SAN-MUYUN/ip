@@ -1,14 +1,17 @@
 package classes;
 
-import classes.Task;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private static final String SYMBOL = "D";
-    private String deadLine;
-    public Deadline(String description, String deadLine, boolean isDone) {
+    private LocalDate deadLine;
+
+    public Deadline(String description, String deadLine, boolean isDone) throws DateTimeParseException {
         super(description);
-        this.deadLine = deadLine.trim();
         this.isDone = isDone;
+        this.deadLine = Parser.parseDate(deadLine.trim());
     }
 
 
@@ -19,6 +22,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + SYMBOL + "]" + super.toString() + " (by: " + this.deadLine + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (by: " + PrintStyle.displayDate(this.deadLine) + ")";
     }
 }

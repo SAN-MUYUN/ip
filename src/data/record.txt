@@ -1,1 +1,3 @@
-D|1|return books|tday
+T|0|buy books
+D|0|return book|2025-02-23
+E|1|discuss books|2025-02-23|2026-12-01

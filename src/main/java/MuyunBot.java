@@ -1,8 +1,13 @@
+import classes.Parser;
+import classes.PrintStyle;
 import classes.Task;
 import exceptions.NoContentException;
 import exceptions.OutOfListException;
 
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -54,7 +59,7 @@ public class MuyunBot {
         String text = PrintStyle.indent("new task is here!")
                 + PrintStyle.indent("added: " + newTask.toString())
                 + PrintStyle.indent("now we have " + TASKLIST.size() + " tasks in the list");
-        display(text);
+        PrintStyle.display(text);
         this.fileManager.writeFile(newTask.toObjStr());
     }
 
@@ -72,7 +77,7 @@ public class MuyunBot {
         TASKLIST.get(ind - 1).markAsDone();
         String text = PrintStyle.indent("well done, 1 task down!\n");
         text += PrintStyle.indent(TASKLIST.get(ind - 1).toString());
-        display(text);
+        PrintStyle.display(text);
         this.fileManager.updateFile(TASKLIST);
     }
 
@@ -90,7 +95,7 @@ public class MuyunBot {
         TASKLIST.get(ind - 1).markNotDone();
         String text = PrintStyle.indent("oops, seems like this task isn't done yet...\n");
         text += PrintStyle.indent(TASKLIST.get(ind - 1).toString());
-        display(text);
+        PrintStyle.display(text);
         this.fileManager.updateFile(TASKLIST);
     }
 
@@ -103,16 +108,10 @@ public class MuyunBot {
             listContent.append(PrintStyle.indent(
                     (i + 1) + ". " + TASKLIST.get(i).toString()));
         }
-        display(listContent.toString());
+        PrintStyle.display(listContent.toString());
     }
 
-    private void display(String x) {
-        // display x in proper style;
-        String text = PrintStyle.dashedLines()
-                + x
-                + PrintStyle.dashedLines();
-        System.out.println(text);
-    }
+
 
     private void delete(int ind) throws OutOfListException{
         if (ind > TASKLIST.size()) {
@@ -124,7 +123,7 @@ public class MuyunBot {
         String text = PrintStyle.indent("I am removing this task:")
                 + PrintStyle.indent(toBeRemoved.toString())
                 + PrintStyle.indent("Now there are " + TASKLIST.size() + " tasks in the list");
-        display(text);
+        PrintStyle.display(text);
         this.fileManager.updateFile(TASKLIST);
     }
 
@@ -135,6 +134,9 @@ public class MuyunBot {
             this.TASKLIST = this.fileManager.syncTaskList();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            PrintStyle.display("File is corrupted, deleting current file and creating new file");
+            this.fileManager.rebuildFile();
         }
         greet();
         String input = scanner.nextLine();
@@ -148,50 +150,58 @@ public class MuyunBot {
                     int ind = Integer.parseInt(comms[1]);
                     markAsDone(ind);
                 } catch (OutOfListException e) {
-                    display(PrintStyle.indent(e.getMessage()));
+                    PrintStyle.display(PrintStyle.indent(e.getMessage()));
                 } catch (NumberFormatException e) {
-                    display(PrintStyle.indent("please enter index right after the command 'mark'"));
+                    PrintStyle.display(PrintStyle.indent("please enter index after the command 'mark'"));
                 }
             } else if (comms[0].equals("unmark")) {
                 try {
                     int ind = Integer.parseInt(comms[1]);
                     markAsUndone(ind);
                 } catch (OutOfListException e) {
-                    display(PrintStyle.indent(e.getMessage()));
+                    PrintStyle.display(PrintStyle.indent(e.getMessage()));
                 } catch (NumberFormatException e) {
-                    display(PrintStyle.indent("please enter index right after the command 'unmark'"));
+                    PrintStyle.display(PrintStyle.indent("please enter index after the command 'unmark'"));
                 }
             } else if (comms[0].equals("todo")) {
                 try {
                     addTask(parser.createTodo(comms));
                 } catch (NoContentException e) {
-                    display(PrintStyle.indent(e.getMessage()));
+                    PrintStyle.display(PrintStyle.indent(e.getMessage()));
                 }
 
             } else if (comms[0].equals("deadline")) {
                 try {
                     addTask(parser.createDeadline(comms));
                 } catch (NoContentException e) {
-                    display(PrintStyle.indent(e.getMessage()));
+                    PrintStyle.display(PrintStyle.indent(e.getMessage()));
+                } catch (DateTimeParseException e) {
+                    PrintStyle.display(PrintStyle.indent("Please input deadline following format yyyy-mm-dd"));
                 }
 
             } else if (comms[0].equals("event")) {
                 try {
                     addTask(parser.createEvent(comms));
                 } catch (NoContentException e) {
-                    display(PrintStyle.indent(e.getMessage()));
+                    PrintStyle.display(PrintStyle.indent(e.getMessage()));
+                } catch (DateTimeParseException e) {
+                    PrintStyle.display(PrintStyle.indent("Please input deadline following format yyyy-mm-dd"));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    PrintStyle.display(PrintStyle.indent("Please input the correct format:"
+                            + "event {description} /from {start time} /to {end time}"));
                 }
+
             } else if (comms[0].equals("delete")) {
                 try {
                     int ind = Integer.parseInt(comms[1]);
                     delete(ind);
                 } catch (OutOfListException e) {
-                    display(PrintStyle.indent(e.getMessage()));
+                    PrintStyle.display(PrintStyle.indent(e.getMessage()));
                 } catch (NumberFormatException e) {
-                    display(PrintStyle.indent("please enter index right after command 'delete'"));
+                    PrintStyle.display(PrintStyle.indent("please enter index after command 'delete'"));
                 }
             } else {
-                display(PrintStyle.indent("Sorry, I have not learnt this command yet :("));
+                PrintStyle.display(PrintStyle.indent("Sorry, I have not learnt this command yet :("));
             }
             input = scanner.nextLine();
             comms = input.split(" ");

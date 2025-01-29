@@ -2,15 +2,18 @@ package classes;
 
 import classes.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
     private static final String SYMBOL = "E";
 
-    public Event(String description, String startTime, String endTime, boolean isDone) {
+    public Event(String description, String startTime, String endTime, boolean isDone) throws DateTimeParseException {
         super(description);
-        this.startTime = startTime.trim();
-        this.endTime = endTime.trim();
+        this.startTime = Parser.parseDate(startTime.trim());
+        this.endTime = Parser.parseDate(endTime.trim());
         this.isDone = isDone;
     }
 
@@ -22,8 +25,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString()
-                + " (from: " + this.startTime
-                + " to: " + this.endTime + ")";
+                + " (from: " + PrintStyle.displayDate(this.startTime)
+                + " to: " + PrintStyle.displayDate(this.endTime) + ")";
     }
 
 

@@ -1,7 +1,14 @@
+package classes;
+
 import classes.Deadline;
 import classes.Event;
 import classes.Todo;
 import exceptions.NoContentException;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -85,4 +92,11 @@ public class Parser {
         }
         return new Event(description.toString(), startTime.toString(), endTime.toString(), false);
     }
+
+    public static LocalDate parseDate(String dateString) throws DateTimeParseException{
+        LocalDate date = LocalDate.parse(dateString);
+        return date;
+    }
+
+
 }

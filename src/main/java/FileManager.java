@@ -1,15 +1,11 @@
-import classes.Deadline;
-import classes.Event;
-import classes.Task;
-import classes.Todo;
+import classes.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileManager {
@@ -38,10 +34,7 @@ public class FileManager {
         f = new File(filePath);
         try {
             if (file.createNewFile()) {
-                System.out.println("File was created.");
-                System.out.println(file.getAbsolutePath());
-            } else {
-                System.out.println("File already exists.");
+                PrintStyle.display("Storage file was created.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file: " + e.getMessage());
@@ -73,7 +66,7 @@ public class FileManager {
         }
     }
 
-    public Task strToTask(String content) {
+    public Task strToTask(String content) throws DateTimeParseException {
 
         String[] parsed = content.split("\\|");
         String symbol = parsed[0];
@@ -83,13 +76,13 @@ public class FileManager {
             case("D"):
                 return new Deadline(parsed[2], parsed[3], Integer.parseInt(parsed[1]) == 1);
             case ("E"):
-                return new Event(parsed[2], parsed[3], parsed[4],Integer.parseInt(parsed[1]) == 1);
+                return new Event(parsed[2], parsed[3], parsed[4], Integer.parseInt(parsed[1]) == 1);
             default:
                 return null;
         }
     }
 
-    public ArrayList<Task> syncTaskList() throws FileNotFoundException {
+    public ArrayList<Task> syncTaskList() throws FileNotFoundException, DateTimeParseException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f);
         ArrayList<Task> result = new ArrayList<>();
@@ -100,8 +93,11 @@ public class FileManager {
             }
         }
         return result;
+    }
 
-
+    public void rebuildFile() {
+        this.file.delete();
+        this.initFile();
     }
 
 }
