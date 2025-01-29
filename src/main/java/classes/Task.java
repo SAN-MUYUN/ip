@@ -1,8 +1,8 @@
 package classes;
 
-public class Task {
+public abstract class Task {
     protected String description;
-    private boolean isDone;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description.trim();
@@ -26,5 +26,7 @@ public class Task {
         // mark done task with X
         return (isDone ? "X" : " ");
     }
+
+    public abstract String toObjStr();
 
 }
