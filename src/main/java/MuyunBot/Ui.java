@@ -1,9 +1,9 @@
-package classes;
+package MuyunBot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class PrintStyle {
+public class Ui {
     public static String dashedLines() {
         return ("    _________"+"\n");
     }
@@ -19,9 +19,9 @@ public class PrintStyle {
 
     public static void display(String x) {
         // display x in proper style;
-        String text = PrintStyle.dashedLines()
+        String text = Ui.dashedLines()
                 + x
-                + PrintStyle.dashedLines();
+                + Ui.dashedLines();
         System.out.println(text);
     }
 

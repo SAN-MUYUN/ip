@@ -1,6 +1,4 @@
-package classes;
-
-import classes.Task;
+package MuyunBot.classes;
 
 public class Todo extends Task {
 
