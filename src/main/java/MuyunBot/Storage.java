@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    String filePath = "ip/src/data/record.txt";
+    String filePath = "src/data/record.txt";
     File file;
     Parser parser;
 
@@ -20,7 +20,7 @@ public class Storage {
         this.parser = new Parser();
     }
     public void initFile() {
-        String directoryPath = "ip/src/data";
+        String directoryPath = "src/data";
         String filePath = this.filePath;
 
         // Create folder if it does not exist.
