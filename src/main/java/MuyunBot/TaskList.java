@@ -81,6 +81,11 @@ public class TaskList {
         Ui.display(listContent.toString());
     }
 
+    /**
+     * Deletes the corresponding task from the TASKLIST.
+     * @param ind task index to be deleted
+     * @throws OutOfListException if ind exceeds the size of the ArrayList TASKLIST.
+     */
     protected void delete(int ind) throws OutOfListException{
         if (ind > TASKLIST.size()) {
             throw new OutOfListException("index " + ind + " is out of the list,"
