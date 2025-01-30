@@ -84,6 +84,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads data from the record.txt, convert the text into new Tasks and adds the tasks into a new ArrayList of Task.
+     * Returns the new Arraylist of Tasks in the end.
+     * @return
+     * @throws FileNotFoundException If the filePath is invalid and cannot be reached
+     * @throws DateTimeParseException If the DateTime passed in by user cannot be parsed properly
+     */
     public ArrayList<Task> syncTaskList() throws FileNotFoundException, DateTimeParseException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f);
@@ -97,6 +104,9 @@ public class Storage {
         return result;
     }
 
+    /**
+     * Deletes and creates a new file in the event that the current record.txt file is corrupted.
+     */
     public void rebuildFile() {
         this.file.delete();
         initFile();
