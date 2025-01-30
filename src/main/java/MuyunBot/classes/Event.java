@@ -1,6 +1,6 @@
-package classes;
+package MuyunBot.classes;
 
-import classes.Task;
+import MuyunBot.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -25,8 +25,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString()
-                + " (from: " + PrintStyle.displayDate(this.startTime)
-                + " to: " + PrintStyle.displayDate(this.endTime) + ")";
+                + " (from: " + Ui.displayDate(this.startTime)
+                + " to: " + Ui.displayDate(this.endTime) + ")";
     }
 
 

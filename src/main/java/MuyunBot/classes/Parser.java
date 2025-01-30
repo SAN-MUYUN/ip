@@ -1,21 +1,21 @@
-package classes;
+package MuyunBot.classes;
 
-import classes.Deadline;
-import classes.Event;
-import classes.Todo;
-import exceptions.NoContentException;
+import MuyunBot.exceptions.NoContentException;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
 
+    public static LocalDate parseDate(String dateString) throws DateTimeParseException{
+        LocalDate date = LocalDate.parse(dateString);
+        return date;
+    }
+
     /**
      * Creates a new Todo instance using the input from commandline.
      * @param inputArr array of input received from commandline by the user.
-     * @return Returns the new classes.Todo created.
+     * @return Returns the new MuyunBot.classes.Todo created.
      */
     public Todo createTodo(String[] inputArr) throws NoContentException {
         StringBuilder descr = new StringBuilder();
@@ -34,7 +34,7 @@ public class Parser {
     /**
      * Creates a new Deadline instance using the input from commandline.
      * @param inputArr array of input received from commandline by the user.
-     * @return Returns the new classes.Deadline created.
+     * @return Returns the new MuyunBot.classes.Deadline created.
      */
     public Deadline createDeadline(String[] inputArr) throws NoContentException {
         if (inputArr.length == 1) {
@@ -93,9 +93,8 @@ public class Parser {
         return new Event(description.toString(), startTime.toString(), endTime.toString(), false);
     }
 
-    public static LocalDate parseDate(String dateString) throws DateTimeParseException{
-        LocalDate date = LocalDate.parse(dateString);
-        return date;
+    public String[] generateCommand(String input) {
+        return input.split(" ");
     }
 
 

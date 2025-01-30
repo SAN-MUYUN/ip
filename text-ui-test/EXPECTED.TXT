@@ -1,5 +1,5 @@
     _________
-    Hello! I'm MuyunBot
+    Hello! I'm MuyunBot.MuyunBot
     What can I do for you?
     _________
 

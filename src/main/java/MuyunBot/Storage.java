@@ -1,4 +1,6 @@
-import classes.*;
+package MuyunBot;
+
+import MuyunBot.classes.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,12 +10,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     String filePath = "ip/src/data/record.txt";
     File file;
     Parser parser;
 
-    public FileManager() {
+    public Storage() {
         this.file = new File(filePath);
         this.parser = new Parser();
     }
@@ -34,7 +36,7 @@ public class FileManager {
         f = new File(filePath);
         try {
             if (file.createNewFile()) {
-                PrintStyle.display("Storage file was created.");
+                Ui.display("MuyunBot.Storage file was created.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file: " + e.getMessage());
@@ -97,7 +99,20 @@ public class FileManager {
 
     public void rebuildFile() {
         this.file.delete();
-        this.initFile();
+        initFile();
+    }
+
+    protected TaskList sync (Storage storage) {
+        storage.initFile();
+        try {
+            return new TaskList(storage, syncTaskList());
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            Ui.display("File is corrupted, deleting current file and creating new file");
+            this.rebuildFile();
+        }
+        return new TaskList(storage);
     }
 
 }

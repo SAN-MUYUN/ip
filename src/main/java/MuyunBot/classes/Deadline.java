@@ -1,6 +1,7 @@
-package classes;
+package MuyunBot.classes;
 
-import java.time.DateTimeException;
+import MuyunBot.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -22,6 +23,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + SYMBOL + "]" + super.toString() + " (by: " + PrintStyle.displayDate(this.deadLine) + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (by: " + Ui.displayDate(this.deadLine) + ")";
     }
 }
