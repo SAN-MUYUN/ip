@@ -32,7 +32,9 @@ public class MuyunBot {
         Ui.display(Ui.indent("Bye! Hope to see you soon!"));
     }
 
-
+    /**
+     * Runs the whole program until user inputs "bye" in the commandline.
+     */
     private void run() {
         Scanner scanner = new Scanner(System.in);
         Command c = new Command();

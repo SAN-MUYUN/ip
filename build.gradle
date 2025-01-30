@@ -32,7 +32,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "MuyunBot"
     archiveClassifier = null
 }
 
