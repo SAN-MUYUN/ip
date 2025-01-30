@@ -1,4 +1,4 @@
-package MuyunBot.classes;
+package muyunBot.classes;
 
 public abstract class Task {
     protected String description;

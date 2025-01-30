@@ -1,6 +1,6 @@
-package MuyunBot;
+package muyunBot;
 
-import MuyunBot.classes.*;
+import muyunBot.classes.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,17 +11,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    String filePath = "src/data/record.txt";
+    final String FILEPATH = "src/data/record.txt";
     File file;
     Parser parser;
 
     public Storage() {
-        this.file = new File(filePath);
+        this.file = new File(FILEPATH);
         this.parser = new Parser();
     }
     public void initFile() {
         String directoryPath = "src/data";
-        String filePath = this.filePath;
+        String filePath = this.FILEPATH;
 
         // Create folder if it does not exist.
         File f = new File(directoryPath);
@@ -33,7 +33,7 @@ public class Storage {
             }
         }
         //create File if it does not exist;
-        f = new File(filePath);
+        f = new File(FILEPATH);
         try {
             if (file.createNewFile()) {
                 Ui.display("MuyunBot.Storage file was created.");
@@ -45,7 +45,7 @@ public class Storage {
 
     public void writeFile(String content) {
         try {
-            FileWriter fw = new FileWriter(this.filePath, true);
+            FileWriter fw = new FileWriter(this.FILEPATH, true);
             fw.write(content + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -60,7 +60,7 @@ public class Storage {
             updatedContent.append(task.toObjStr() + System.lineSeparator());
         }
         try {
-            FileWriter fw = new FileWriter(this.filePath);
+            FileWriter fw = new FileWriter(this.FILEPATH);
             fw.write(updatedContent.toString());
             fw.close();
         } catch (IOException e) {
@@ -88,11 +88,11 @@ public class Storage {
      * Reads data from the record.txt, convert the text into new Tasks and adds the tasks into a new ArrayList of Task.
      * Returns the new Arraylist of Tasks in the end.
      * @return
-     * @throws FileNotFoundException If the filePath is invalid and cannot be reached
+     * @throws FileNotFoundException If the FILEPATH is invalid and cannot be reached
      * @throws DateTimeParseException If the DateTime passed in by user cannot be parsed properly
      */
     public ArrayList<Task> syncTaskList() throws FileNotFoundException, DateTimeParseException {
-        File f = new File(filePath); // create a File for the given file path
+        File f = new File(FILEPATH); // create a File for the given file path
         Scanner s = new Scanner(f);
         ArrayList<Task> result = new ArrayList<>();
         while (s.hasNext()) {

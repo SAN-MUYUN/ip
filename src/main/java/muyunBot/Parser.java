@@ -1,12 +1,21 @@
-package MuyunBot.classes;
+package muyunBot;
 
-import MuyunBot.exceptions.NoContentException;
+import muyunBot.classes.Deadline;
+import muyunBot.classes.Event;
+import muyunBot.classes.Todo;
+import muyunBot.exceptions.NoContentException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
 
+    /**
+     * parse the dateString input from user into a LocalDate object
+     * @param dateString user input for datetime
+     * @return a LocalDate object by parsing the dateString
+     * @throws DateTimeParseException if dateString is invalid
+     */
     public static LocalDate parseDate(String dateString) throws DateTimeParseException{
         LocalDate date = LocalDate.parse(dateString);
         return date;

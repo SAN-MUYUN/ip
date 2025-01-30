@@ -1,8 +1,7 @@
-package MuyunBot;
+package muyunBot;
 
-import MuyunBot.Ui;
-import MuyunBot.classes.Task;
-import MuyunBot.exceptions.OutOfListException;
+import muyunBot.classes.Task;
+import muyunBot.exceptions.OutOfListException;
 
 import java.util.ArrayList;
 
