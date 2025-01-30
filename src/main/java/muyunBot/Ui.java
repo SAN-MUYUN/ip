@@ -1,11 +1,11 @@
-package MuyunBot;
+package muyunBot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Ui {
     public static String dashedLines() {
-        return ("    _________"+"\n");
+        return ("    __________"+"\n");
     }
 
     /**

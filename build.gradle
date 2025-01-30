@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("MuyunBot.MuyunBot")
+    mainClass.set("muyunBot.MuyunBot")
 }
 
 shadowJar {

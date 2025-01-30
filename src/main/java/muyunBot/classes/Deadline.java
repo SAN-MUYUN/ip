@@ -1,6 +1,7 @@
-package MuyunBot.classes;
+package muyunBot.classes;
 
-import MuyunBot.Ui;
+import muyunBot.Parser;
+import muyunBot.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

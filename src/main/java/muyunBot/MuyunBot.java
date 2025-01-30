@@ -1,10 +1,5 @@
-package MuyunBot;
+package muyunBot;
 
-import MuyunBot.classes.Parser;
-import MuyunBot.exceptions.NoContentException;
-import MuyunBot.exceptions.OutOfListException;
-
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class MuyunBot {
