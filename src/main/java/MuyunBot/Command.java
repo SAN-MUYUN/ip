@@ -8,6 +8,12 @@ import java.time.format.DateTimeParseException;
 
 public class Command {
 
+    /**
+     * Executes commands according to the comms passed in
+     * @param comms parsed commands
+     * @param taskList taskList to be updated when executing commands
+     * @param parser Parser that is used to understand the commands and create tasks accordingly.
+     */
     protected void execute(String[] comms, TaskList taskList, Parser parser) {
         switch (comms[0]) {
         case "list":
