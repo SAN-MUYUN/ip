@@ -83,6 +83,17 @@ public class Command {
                 Ui.display(Ui.indent("please enter index after command 'delete'"));
             }
 
+        case "find":
+            StringBuilder searchText = new StringBuilder();
+            for (int i = 1; i < comms.length; i++) {
+                if (!searchText.isEmpty()) {
+                    searchText.append(" ");
+                }
+                searchText.append(comms[i]);
+            }
+            taskList.find(searchText.toString());
+            break;
+
         default:
             Ui.display(Ui.indent("Sorry, I have not learnt this command yet :("));
         }

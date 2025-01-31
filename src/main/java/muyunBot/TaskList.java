@@ -98,4 +98,16 @@ public class TaskList {
         Ui.display(text);
         this.storage.updateFile(TASKLIST);
     }
+
+    protected void find(String text) {
+        StringBuilder listContent = new StringBuilder();
+        for (int i = 0; i < TASKLIST.size(); i++) {
+            if (TASKLIST.get(i).describe().contains(text)) {
+                listContent.append(Ui.indent(
+                        (i + 1) + ". " + TASKLIST.get(i).toString()));
+            }
+
+        }
+        Ui.display(listContent.toString());
+    }
 }
