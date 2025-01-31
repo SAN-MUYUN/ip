@@ -27,6 +27,10 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String describe() {
+        return  this.description;
+    }
+
     public abstract String toObjStr();
 
 }

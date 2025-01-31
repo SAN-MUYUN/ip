@@ -51,6 +51,7 @@ public class MuyunBot {
     public static void main(String[] args) {
         MuyunBot bot = new MuyunBot();
         bot.run();
+
     }
 
 }
