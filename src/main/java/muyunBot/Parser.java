@@ -102,6 +102,11 @@ public class Parser {
         return new Event(description.toString(), startTime.toString(), endTime.toString(), false);
     }
 
+    /**
+     * Parses the input into a string array.
+     * @param input User input.
+     * @return String array after splitting the input.
+     */
     public String[] generateCommand(String input) {
         return input.split(" ");
     }

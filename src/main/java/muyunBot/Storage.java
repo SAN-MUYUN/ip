@@ -19,6 +19,11 @@ public class Storage {
         this.file = new File(FILEPATH);
         this.parser = new Parser();
     }
+
+    /**
+     * Checks if the required folder path and file path are valid.
+     * If required file path and folder path are not present, create the required folder and file path.
+     */
     public void initFile() {
         String directoryPath = "src/data";
         String filePath = this.FILEPATH;
@@ -43,6 +48,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes content into the record.txt file.
+     * @param content Content to be written into the file.
+     */
     public void writeFile(String content) {
         try {
             FileWriter fw = new FileWriter(this.FILEPATH, true);
@@ -54,6 +63,10 @@ public class Storage {
 
     }
 
+    /**
+     * Writes all tasks in the list into the file.
+     * @param list a list containing all the tasks.
+     */
     public void updateFile(ArrayList<Task> list) {
         StringBuilder updatedContent = new StringBuilder();
         for (Task task : list) {
@@ -68,6 +81,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a string into a Task object.
+     * @param content String representation of a Task.
+     * @return Task
+     * @throws DateTimeParseException If datetime in the content cannot be parsed into LocalDate object.
+     */
     public Task strToTask(String content) throws DateTimeParseException {
 
         String[] parsed = content.split("\\|");
@@ -112,6 +131,11 @@ public class Storage {
         initFile();
     }
 
+    /**
+     * Returns a new TaskList containing all tasks from the file.
+     * @param storage Storage used to initialise a file and creates the new TaskList object.
+     * @return new TaskList.
+     */
     protected TaskList sync (Storage storage) {
         storage.initFile();
         try {
