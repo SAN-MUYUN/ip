@@ -9,19 +9,19 @@ public class Command {
 
     /**
      * Executes commands according to the comms passed in
-     * @param comms parsed commands
+     * @param comm parsed commands
      * @param taskList taskList to be updated when executing commands
      * @param parser Parser that is used to understand the commands and create tasks accordingly.
      */
-    protected void execute(String[] comms, TaskList taskList, Parser parser) {
-        switch (comms[0]) {
+    protected void execute(String[] comm, TaskList taskList, Parser parser) {
+        switch (comm[0]) {
         case "list":
             taskList.showList();
             break;
 
         case "mark":
             try {
-                int ind = Integer.parseInt(comms[1]);
+                int ind = Integer.parseInt(comm[1]);
                 taskList.markAsDone(ind);
                 break;
             } catch (OutOfListException e) {
@@ -32,7 +32,7 @@ public class Command {
 
         case "unmark":
             try {
-                int ind = Integer.parseInt(comms[1]);
+                int ind = Integer.parseInt(comm[1]);
                 taskList.markAsUndone(ind);
                 break;
             } catch (OutOfListException e) {
@@ -43,7 +43,7 @@ public class Command {
 
         case "todo":
             try {
-                taskList.addTask(parser.createTodo(comms));
+                taskList.addTask(parser.createTodo(comm));
                 break;
             } catch (NoContentException e) {
                 Ui.display(Ui.indent(e.getMessage()));
@@ -51,7 +51,7 @@ public class Command {
 
         case "deadline":
             try {
-                taskList.addTask(parser.createDeadline(comms));
+                taskList.addTask(parser.createDeadline(comm));
                 break;
             } catch (NoContentException e) {
                 Ui.display(Ui.indent(e.getMessage()));
@@ -61,7 +61,7 @@ public class Command {
 
         case "event":
             try {
-                taskList.addTask(parser.createEvent(comms));
+                taskList.addTask(parser.createEvent(comm));
                 break;
             } catch (NoContentException e) {
                 Ui.display(Ui.indent(e.getMessage()));
@@ -74,7 +74,7 @@ public class Command {
 
         case "delete":
             try {
-                int ind = Integer.parseInt(comms[1]);
+                int ind = Integer.parseInt(comm[1]);
                 taskList.delete(ind);
                 break;
             } catch (OutOfListException e) {

@@ -19,7 +19,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + (this.isDone?"X":" ") + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     public String getStatusIcon() {

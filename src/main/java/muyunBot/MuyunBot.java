@@ -40,7 +40,7 @@ public class MuyunBot {
         Command c = new Command();
         greet();
         String input = scanner.nextLine();
-        while(!input.equals("bye")) {
+        while (!input.equals("bye")) {
             String[] comms = parser.generateCommand(input);
             c.execute(comms, this.taskList, this.parser);
             input = scanner.nextLine();

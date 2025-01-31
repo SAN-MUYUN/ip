@@ -13,14 +13,14 @@ public class Ui {
      * @param x input string
      * @return Indented string for formatting
      */
-    public static String indent(String x) {
-        return ("    " + x + "\n");
+    public static String indent(String text) {
+        return ("    " + text + "\n");
     }
 
-    public static void display(String x) {
+    public static void display(String text) {
         // display x in proper style;
         String text = Ui.dashedLines()
-                + x
+                + text
                 + Ui.dashedLines();
         System.out.println(text);
     }
