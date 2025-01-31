@@ -84,12 +84,13 @@ public class Command {
             }
 
         case "find":
+            // find the corresponding element
             StringBuilder searchText = new StringBuilder();
-            for (int i = 1; i < comms.length; i++) {
+            for (int i = 1; i < comm.length; i++) {
                 if (!searchText.isEmpty()) {
                     searchText.append(" ");
                 }
-                searchText.append(comms[i]);
+                searchText.append(comm[i]);
             }
             taskList.find(searchText.toString());
             break;
