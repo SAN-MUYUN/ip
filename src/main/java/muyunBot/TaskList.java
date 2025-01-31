@@ -6,8 +6,12 @@ import muyunBot.exceptions.OutOfListException;
 import java.util.ArrayList;
 
 public class TaskList {
+
+    /** ArrayList containing all the tasks */
     private final ArrayList<Task> TASKLIST;
+
     private Storage storage;
+
     public TaskList(Storage storage) {
         this.TASKLIST = new ArrayList<>();
         this.storage = storage;
@@ -33,7 +37,7 @@ public class TaskList {
     }
 
     /**
-     * Marks the task with index ind in TASKLIST as done. Displays a message after marking as done.
+     * Marks a task with index ind in TASKLIST as done. Displays a message after marking as done.
      * @param ind index to be marked as done in the TASKLIST.
      * @exception OutOfListException when index is larger than number of Tasks.
      */
@@ -51,7 +55,7 @@ public class TaskList {
     }
 
     /**
-     * Marks the task with index ind in TASKLIST as undone. Displays a message after that.
+     * Marks a task in TASKLIST as undone. Displays a message after that.
      * @param ind index to be marked as undone in the TASKLIST.
      * @exception OutOfListException when index is larger than number of Tasks.
      */
@@ -81,7 +85,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes the corresponding task from the TASKLIST.
+     * Deletes a task from the TASKLIST.
      * @param ind task index to be deleted
      * @throws OutOfListException if ind exceeds the size of the ArrayList TASKLIST.
      */
