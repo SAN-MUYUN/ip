@@ -15,23 +15,23 @@ public class Ui {
 
     /**
      * Adds indentation to a string for formatting.
-     * @param x input string
+     * @param text input string
      * @return Indented string for formatting
      */
-    public static String indent(String x) {
-        return ("    " + x + "\n");
+    public static String indent(String text) {
+        return ("    " + text + "\n");
     }
 
     /**
      * Displays the content of a string onto the commandline in a formatted style.
-     * @param x A string content to be displayed on the UI.
+     * @param text A string content to be displayed on the UI.
      */
-    public static void display(String x) {
+    public static void display(String text) {
         // display x in proper style;
-        String text = Ui.dashedLines()
-                + x
+        String textToDisplay = Ui.dashedLines()
+                + text
                 + Ui.dashedLines();
-        System.out.println(text);
+        System.out.println(textToDisplay);
     }
 
     /**
