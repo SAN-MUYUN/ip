@@ -1,9 +1,16 @@
-package muyunBot.classes;
+package muyunbot.classes;
 
+/**
+ * Provides an abstraction for all the tasks managed by the bot.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a simple task object with only description and isDone status.
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description.trim();
         this.isDone = false;
@@ -28,7 +35,7 @@ public abstract class Task {
     }
 
     public String describe() {
-        return  this.description;
+        return this.description;
     }
 
     public abstract String toObjStr();

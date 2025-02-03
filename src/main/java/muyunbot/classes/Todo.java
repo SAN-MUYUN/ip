@@ -1,4 +1,4 @@
-package muyunBot.classes;
+package muyunbot.classes;
 
 public class Todo extends Task {
 

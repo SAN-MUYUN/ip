@@ -1,6 +1,4 @@
-package muyunBot;
-
-import muyunBot.classes.*;
+package muyunbot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,11 +8,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import muyunbot.classes.Deadline;
+import muyunbot.classes.Event;
+import muyunbot.classes.Task;
+import muyunbot.classes.Todo;
+
+/**
+ * Handles writing and reading data from files.
+ */
 public class Storage {
     final String FILEPATH = "src/data/record.txt";
-    File file;
-    Parser parser;
+    private File file;
+    private Parser parser;
 
+    /**
+     * Constructs a Storage object using filepath.
+     */
     public Storage() {
         this.file = new File(FILEPATH);
         this.parser = new Parser();
@@ -31,7 +40,7 @@ public class Storage {
         // Create folder if it does not exist.
         File f = new File(directoryPath);
         if (!f.exists()) {
-            if(f.mkdirs()) {
+            if (f.mkdirs()) {
                 System.out.println("new directory created");
             } else {
                 System.out.println("Canno create new directory");
@@ -91,15 +100,15 @@ public class Storage {
 
         String[] parsed = content.split("\\|");
         String symbol = parsed[0];
-        switch(symbol){
-            case("T"):
-                return new Todo(parsed[2], Integer.parseInt(parsed[1]) == 1);
-            case("D"):
-                return new Deadline(parsed[2], parsed[3], Integer.parseInt(parsed[1]) == 1);
-            case ("E"):
-                return new Event(parsed[2], parsed[3], parsed[4], Integer.parseInt(parsed[1]) == 1);
-            default:
-                return null;
+        switch(symbol) {
+        case("T"):
+            return new Todo(parsed[2], Integer.parseInt(parsed[1]) == 1);
+        case("D"):
+            return new Deadline(parsed[2], parsed[3], Integer.parseInt(parsed[1]) == 1);
+        case ("E"):
+            return new Event(parsed[2], parsed[3], parsed[4], Integer.parseInt(parsed[1]) == 1);
+        default:
+            return null;
         }
     }
 
@@ -136,7 +145,7 @@ public class Storage {
      * @param storage Storage used to initialise a file and creates the new TaskList object.
      * @return new TaskList.
      */
-    protected TaskList sync (Storage storage) {
+    protected TaskList sync(Storage storage) {
         storage.initFile();
         try {
             return new TaskList(storage, syncTaskList());

@@ -1,8 +1,11 @@
-package muyunBot;
+package muyunbot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles user interface and user interactions.
+ */
 public class Ui {
 
     /**
@@ -10,7 +13,7 @@ public class Ui {
      * @return A string of indented "_" line with a newline character at the end.
      */
     public static String dashedLines() {
-        return ("    __________"+"\n");
+        return ("    __________" + "\n");
     }
 
     /**
@@ -40,7 +43,7 @@ public class Ui {
      * @return A string representation of date to be displayed on the UI.
      */
     public static String displayDate(LocalDate date) {
-        return(date.getDayOfWeek().toString().substring(0, 3) + " "
+        return (date.getDayOfWeek().toString().substring(0, 3) + " "
                 + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }

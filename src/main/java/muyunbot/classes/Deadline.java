@@ -1,15 +1,25 @@
-package muyunBot.classes;
-
-import muyunBot.Parser;
-import muyunBot.Ui;
+package muyunbot.classes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import muyunbot.Parser;
+import muyunbot.Ui;
+
+/**
+ * Provides the model for tasks with deadline
+ */
 public class Deadline extends Task {
     private static final String SYMBOL = "D";
     private LocalDate deadLine;
 
+    /**
+     * Constructs a deadline object.
+     * @param description Description of the task.
+     * @param deadLine Deadline of the task.
+     * @param isDone Whether the task is done.
+     * @throws DateTimeParseException If the deadline passed in is in the wrong format and cannot be parsed.
+     */
     public Deadline(String description, String deadLine, boolean isDone) throws DateTimeParseException {
         super(description);
         this.isDone = isDone;

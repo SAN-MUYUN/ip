@@ -1,4 +1,4 @@
-package muyunBot;
+package muyunbot;
 
 import org.junit.jupiter.api.Test;
 

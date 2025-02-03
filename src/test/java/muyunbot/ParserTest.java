@@ -1,7 +1,7 @@
-package muyunBot;
+package muyunbot;
 
-import muyunBot.classes.Todo;
-import muyunBot.exceptions.NoContentException;
+import muyunbot.classes.Todo;
+import muyunbot.exceptions.NoContentException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

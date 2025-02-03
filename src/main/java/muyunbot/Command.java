@@ -1,10 +1,13 @@
-package muyunBot;
-
-import muyunBot.exceptions.NoContentException;
-import muyunBot.exceptions.OutOfListException;
+package muyunbot;
 
 import java.time.format.DateTimeParseException;
 
+import muyunbot.exceptions.NoContentException;
+import muyunbot.exceptions.OutOfListException;
+
+/**
+ * Handles the commands generated from user input.
+ */
 public class Command {
 
     /**
@@ -23,46 +26,45 @@ public class Command {
             try {
                 int ind = Integer.parseInt(comm[1]);
                 taskList.markAsDone(ind);
-                break;
             } catch (OutOfListException e) {
                 Ui.display(Ui.indent(e.getMessage()));
             } catch (NumberFormatException e) {
                 Ui.display(Ui.indent("please enter index after the command 'mark'"));
             }
+            break;
 
         case "unmark":
             try {
                 int ind = Integer.parseInt(comm[1]);
                 taskList.markAsUndone(ind);
-                break;
             } catch (OutOfListException e) {
                 Ui.display(Ui.indent(e.getMessage()));
             } catch (NumberFormatException e) {
                 Ui.display(Ui.indent("please enter index after the command 'unmark'"));
             }
+            break;
 
         case "todo":
             try {
                 taskList.addTask(parser.createTodo(comm));
-                break;
             } catch (NoContentException e) {
                 Ui.display(Ui.indent(e.getMessage()));
             }
+            break;
 
         case "deadline":
             try {
                 taskList.addTask(parser.createDeadline(comm));
-                break;
             } catch (NoContentException e) {
                 Ui.display(Ui.indent(e.getMessage()));
             } catch (DateTimeParseException e) {
                 Ui.display(Ui.indent("Please input deadline following format yyyy-mm-dd"));
             }
+            break;
 
         case "event":
             try {
                 taskList.addTask(parser.createEvent(comm));
-                break;
             } catch (NoContentException e) {
                 Ui.display(Ui.indent(e.getMessage()));
             } catch (DateTimeParseException e) {
@@ -71,17 +73,18 @@ public class Command {
                 Ui.display(Ui.indent("Please input the correct format:"
                         + "event {description} /from {start time} /to {end time}"));
             }
+            break;
 
         case "delete":
             try {
                 int ind = Integer.parseInt(comm[1]);
                 taskList.delete(ind);
-                break;
             } catch (OutOfListException e) {
                 Ui.display(Ui.indent(e.getMessage()));
             } catch (NumberFormatException e) {
                 Ui.display(Ui.indent("please enter index after command 'delete'"));
             }
+            break;
 
         case "find":
             // find the corresponding element
