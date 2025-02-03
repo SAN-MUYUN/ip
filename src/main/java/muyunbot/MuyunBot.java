@@ -1,7 +1,10 @@
-package muyunBot;
+package muyunbot;
 
 import java.util.Scanner;
 
+/**
+ * Represents the model of the chat bot.
+ */
 public class MuyunBot {
 
     private TaskList taskList;
@@ -9,6 +12,9 @@ public class MuyunBot {
 
     private final Parser parser;
 
+    /**
+     * Constructs a bot.
+     */
     public MuyunBot() {
         this.storage = new Storage();
         this.parser = new Parser();

@@ -1,10 +1,13 @@
-package muyunBot;
-
-import muyunBot.classes.Task;
-import muyunBot.exceptions.OutOfListException;
+package muyunbot;
 
 import java.util.ArrayList;
 
+import muyunbot.classes.Task;
+import muyunbot.exceptions.OutOfListException;
+
+/**
+ * Represents the task list with methods to handle the tasks in the task list.
+ */
 public class TaskList {
 
     /** ArrayList containing all the tasks */
@@ -12,11 +15,20 @@ public class TaskList {
 
     private Storage storage;
 
+    /**
+     * Constructs a TaskList object
+     * @param storage Storage object used to write to files.
+     */
     public TaskList(Storage storage) {
         this.TASKLIST = new ArrayList<>();
         this.storage = storage;
     }
 
+    /**
+     * Constructs a TaskList from a given list of tasks.
+     * @param storage Storage object used to write and retrieve data from file.
+     * @param list List containing tasks used to populates the TaskList.
+     */
     public TaskList(Storage storage, ArrayList<Task> list) {
         this.storage = storage;
         this.TASKLIST = list;
@@ -45,7 +57,7 @@ public class TaskList {
         if (ind > TASKLIST.size()) {
             throw new OutOfListException("Task number "
                     + ind
-                    + " is out of the list of size "+ TASKLIST.size() +", please double check your index~");
+                    + " is out of the list of size " + TASKLIST.size() + ", please double check your index~");
         }
         TASKLIST.get(ind - 1).markAsDone();
         String text = Ui.indent("well done, 1 task down!\n");
@@ -78,8 +90,7 @@ public class TaskList {
     protected void showList() {
         StringBuilder listContent = new StringBuilder();
         for (int i = 0; i < TASKLIST.size(); i++) {
-            listContent.append(Ui.indent(
-                    (i + 1) + ". " + TASKLIST.get(i).toString()));
+            listContent.append(Ui.indent((i + 1) + ". " + TASKLIST.get(i).toString()));
         }
         Ui.display(listContent.toString());
     }
@@ -89,7 +100,7 @@ public class TaskList {
      * @param ind task index to be deleted
      * @throws OutOfListException if ind exceeds the size of the ArrayList TASKLIST.
      */
-    protected void delete(int ind) throws OutOfListException{
+    protected void delete(int ind) throws OutOfListException {
         if (ind > TASKLIST.size()) {
             throw new OutOfListException("index " + ind + " is out of the list,"
                     + " please double check your index~");
@@ -107,8 +118,7 @@ public class TaskList {
         StringBuilder listContent = new StringBuilder();
         for (int i = 0; i < TASKLIST.size(); i++) {
             if (TASKLIST.get(i).describe().contains(text)) {
-                listContent.append(Ui.indent(
-                        (i + 1) + ". " + TASKLIST.get(i).toString()));
+                listContent.append(Ui.indent((i + 1) + ". " + TASKLIST.get(i).toString()));
             }
 
         }

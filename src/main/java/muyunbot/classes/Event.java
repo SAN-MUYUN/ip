@@ -1,16 +1,28 @@
-package muyunBot.classes;
-
-import muyunBot.Parser;
-import muyunBot.Ui;
+package muyunbot.classes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import muyunbot.Parser;
+import muyunbot.Ui;
+
+
+/**
+ * Represents a Task with start time and end time.
+ */
 public class Event extends Task {
+
+    private static final String SYMBOL = "E";
     private LocalDate startTime;
     private LocalDate endTime;
-    private static final String SYMBOL = "E";
-
+    /**
+     * Constructs an event object.
+     * @param description
+     * @param startTime Start time of the event.
+     * @param endTime End time of the event.
+     * @param isDone whether the task is done.
+     * @throws DateTimeParseException If time passed is in the wrong format and cannot be parsed properly.
+     */
     public Event(String description, String startTime, String endTime, boolean isDone) throws DateTimeParseException {
         super(description);
         this.startTime = Parser.parseDate(startTime.trim());

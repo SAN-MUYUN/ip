@@ -1,13 +1,16 @@
-package muyunBot;
-
-import muyunBot.classes.Deadline;
-import muyunBot.classes.Event;
-import muyunBot.classes.Todo;
-import muyunBot.exceptions.NoContentException;
+package muyunbot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import muyunbot.classes.Deadline;
+import muyunbot.classes.Event;
+import muyunbot.classes.Todo;
+import muyunbot.exceptions.NoContentException;
+
+/**
+ * Parses the user inputs.
+ */
 public class Parser {
 
     /**
@@ -16,7 +19,7 @@ public class Parser {
      * @return a LocalDate object by parsing the dateString
      * @throws DateTimeParseException if dateString is invalid
      */
-    public static LocalDate parseDate(String dateString) throws DateTimeParseException{
+    public static LocalDate parseDate(String dateString) throws DateTimeParseException {
         LocalDate date = LocalDate.parse(dateString);
         return date;
     }
@@ -29,10 +32,10 @@ public class Parser {
     public Todo createTodo(String[] inputArr) throws NoContentException {
         StringBuilder descr = new StringBuilder();
         if (inputArr.length == 1) {
-            throw new NoContentException("I see you want to do something, " +
-                    "what exactly is this task about?");
+            throw new NoContentException("I see you want to do something, "
+                    + "what exactly is this task about?");
         }
-        for(int i = 1; i < inputArr.length; i++) {
+        for (int i = 1; i < inputArr.length; i++) {
             descr.append(inputArr[i]);
             descr.append(" ");
         }
@@ -47,8 +50,8 @@ public class Parser {
      */
     public Deadline createDeadline(String[] inputArr) throws NoContentException {
         if (inputArr.length == 1) {
-            throw new NoContentException("I see a deadline is approaching, " +
-                    "what exactly is this task about?");
+            throw new NoContentException("I see a deadline is approaching, "
+                    + "what exactly is this task about?");
         }
         int counter = 1;
         StringBuilder description = new StringBuilder();
@@ -58,8 +61,8 @@ public class Parser {
             counter++;
         }
         if (counter == inputArr.length) {
-            throw new NoContentException("When is this deadline? " +
-                    "add a deadline using format: deadline {task} /by {deadline date and time}");
+            throw new NoContentException("When is this deadline? "
+                    + "add a deadline using format: deadline {task} /by {deadline date and time}");
         }
         counter++;
         while (counter < inputArr.length) {
@@ -72,10 +75,16 @@ public class Parser {
         return new Deadline(description.toString(), deadLine.toString(), false);
     }
 
+    /**
+     * Creates an Events object.
+     * @param inputArr Parsed user input.
+     * @return A new Event object built from info in the inputArr.
+     * @throws NoContentException If elements are missing from user input.
+     */
     public Event createEvent(String[] inputArr) throws NoContentException {
         if (inputArr.length == 1) {
-            throw new NoContentException("I see you want to create an event, " +
-                    "what exactly is this task about?");
+            throw new NoContentException("I see you want to create an event, "
+                    + "what exactly is this task about?");
         }
         int counter = 1;
         StringBuilder description = new StringBuilder();
@@ -91,13 +100,13 @@ public class Parser {
             counter++;
         }
         counter++;
-        while(counter < inputArr.length) {
+        while (counter < inputArr.length) {
             endTime.append(inputArr[counter] + " ");
             counter++;
         }
         if (description.length() == 0 || startTime.length() == 0 || endTime.length() == 0) {
-            throw new NoContentException("description or start time or end time for event is missing" +
-                    "please follow template: event {event description} /from {start time} /to {end time}");
+            throw new NoContentException("description or start time or end time for event is missing"
+                    + "please follow template: event {event description} /from {start time} /to {end time}");
         }
         return new Event(description.toString(), startTime.toString(), endTime.toString(), false);
     }
