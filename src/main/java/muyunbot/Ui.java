@@ -3,16 +3,20 @@ package muyunbot;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+
+
 /**
  * Handles user interface and user interactions.
  */
+
 public class Ui {
+
 
     /**
      * Draws a separation line for formatting when displayed on UI.
      * @return A string of indented "_" line with a newline character at the end.
      */
-    public static String dashedLines() {
+    public String dashedLines() {
         return ("    __________" + "\n");
     }
 
@@ -21,7 +25,7 @@ public class Ui {
      * @param text input string
      * @return Indented string for formatting
      */
-    public static String indent(String text) {
+    public String indent(String text) {
         return ("    " + text + "\n");
     }
 
@@ -29,12 +33,14 @@ public class Ui {
      * Displays the content of a string onto the commandline in a formatted style.
      * @param text A string content to be displayed on the UI.
      */
-    public static void display(String text) {
+    public String display(String text) {
         // display x in proper style;
-        String textToDisplay = Ui.dashedLines()
+        String textToDisplay = this.dashedLines()
                 + text
-                + Ui.dashedLines();
+                + this.dashedLines();
         System.out.println(textToDisplay);
+        return textToDisplay;
+
     }
 
     /**
@@ -42,7 +48,7 @@ public class Ui {
      * @param date LocalDate representation of the user input date.
      * @return A string representation of date to be displayed on the UI.
      */
-    public static String displayDate(LocalDate date) {
+    public String displayDate(LocalDate date) {
         return (date.getDayOfWeek().toString().substring(0, 3) + " "
                 + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }

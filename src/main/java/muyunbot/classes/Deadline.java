@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import muyunbot.Parser;
-import muyunbot.Ui;
 
 /**
  * Provides the model for tasks with deadline
@@ -38,6 +37,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + SYMBOL + "]" + super.toString() + " (by: " + Ui.displayDate(this.deadLine) + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (by: " + this.ui.displayDate(this.deadLine) + ")";
     }
 }

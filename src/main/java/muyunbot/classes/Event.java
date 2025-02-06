@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import muyunbot.Parser;
-import muyunbot.Ui;
 
 
 /**
@@ -43,8 +42,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString()
-                + " (from: " + Ui.displayDate(this.startTime)
-                + " to: " + Ui.displayDate(this.endTime) + ")";
+                + " (from: " + this.ui.displayDate(this.startTime)
+                + " to: " + this.ui.displayDate(this.endTime) + ")";
     }
 
 

@@ -20,13 +20,15 @@ public class Storage {
     final String FILEPATH = "src/data/record.txt";
     private File file;
     private Parser parser;
+    private Ui ui;
 
     /**
      * Constructs a Storage object using filepath.
      */
-    public Storage() {
+    public Storage(Ui ui) {
         this.file = new File(FILEPATH);
         this.parser = new Parser();
+        this.ui = ui;
     }
 
     /**
@@ -50,7 +52,7 @@ public class Storage {
         f = new File(FILEPATH);
         try {
             if (file.createNewFile()) {
-                Ui.display("MuyunBot.Storage file was created.");
+                this.ui.display("MuyunBot.Storage file was created.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file: " + e.getMessage());
@@ -148,14 +150,14 @@ public class Storage {
     protected TaskList sync(Storage storage) {
         storage.initFile();
         try {
-            return new TaskList(storage, syncTaskList());
+            return new TaskList(storage, syncTaskList(), this.ui);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (DateTimeParseException e) {
-            Ui.display("File is corrupted, deleting current file and creating new file");
+            this.ui.display("File is corrupted, deleting current file and creating new file");
             this.rebuildFile();
         }
-        return new TaskList(storage);
+        return new TaskList(storage, this.ui);
     }
 
 }
