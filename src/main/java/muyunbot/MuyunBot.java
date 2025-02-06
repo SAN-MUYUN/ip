@@ -1,5 +1,7 @@
 package muyunbot;
 
+import javafx.scene.layout.VBox;
+
 import java.util.Scanner;
 
 /**
@@ -11,12 +13,14 @@ public class MuyunBot {
     private final Storage storage;
 
     private final Parser parser;
+    private Ui ui;
 
     /**
      * Constructs a bot.
      */
     public MuyunBot() {
-        this.storage = new Storage();
+        this.ui = new Ui();
+        this.storage = new Storage(this.ui);
         this.parser = new Parser();
         this.taskList = this.storage.sync(this.storage);
     }
@@ -25,17 +29,17 @@ public class MuyunBot {
     /**
      * Prints greeting message on commandline
      */
-    private void greet() {
-        String text = Ui.indent("Hello! I'm MuyunBot")
-                + Ui.indent("What can I do for you?");
-        Ui.display(text);
+    private String greet() {
+        String text = this.ui.indent("Hello! I'm MuyunBot")
+                + this.ui.indent("What can I do for you?");
+        return this.ui.display(text);
     }
 
     /**
      * Displays end message on the commandline
      */
-    private void quit() {
-        Ui.display(Ui.indent("Bye! Hope to see you soon!"));
+    private String quit() {
+        return this.ui.display(this.ui.indent("Bye! Hope to see you soon!"));
     }
 
     /**
@@ -43,7 +47,7 @@ public class MuyunBot {
      */
     private void run() {
         Scanner scanner = new Scanner(System.in);
-        Command c = new Command();
+        Command c = new Command(this.ui);
         greet();
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
@@ -54,10 +58,15 @@ public class MuyunBot {
         quit();
     }
 
+    public String getResponse(String input) {
+        Command c = new Command(new Ui());
+        String[] comms = parser.generateCommand(input);
+        return c.execute(comms, this.taskList, this.parser);
+    }
+
     public static void main(String[] args) {
         MuyunBot bot = new MuyunBot();
         bot.run();
-
     }
 
 }

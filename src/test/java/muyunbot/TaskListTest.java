@@ -12,7 +12,7 @@ public class TaskListTest {
     @Test
     public void addTask_todo_success() {
         ArrayList<Task> testArray = new ArrayList<>();
-        TaskList sut = new TaskList(new Storage(), testArray);
+        TaskList sut = new TaskList(new Storage(new Ui()), testArray);
         Todo testTodo = new Todo("testing");
         sut.addTask(testTodo);
 

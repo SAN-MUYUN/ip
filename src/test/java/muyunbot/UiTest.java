@@ -9,17 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UiTest {
     @Test
     public void dashedlines_drawLine(){
-        assertEquals("    __________\n", Ui.dashedLines());
+        assertEquals("    __________\n", new Ui().dashedLines());
     }
 
     @Test
     public void indent_normalText_success(){
-        assertEquals("    hi\n", Ui.indent("hi"));
+        assertEquals("    hi\n", new Ui().indent("hi"));
     }
 
     @Test
     public void displayDate_validDateInput_success() {
         LocalDate testDateInput = LocalDate.parse("2025-01-30");
-        assertEquals("THU Jan 30 2025", Ui.displayDate(testDateInput));
+        assertEquals("THU Jan 30 2025", new Ui().displayDate(testDateInput));
     }
 }
