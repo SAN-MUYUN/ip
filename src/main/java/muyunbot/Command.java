@@ -29,8 +29,8 @@ public class Command {
             return taskList.showList();
         case "mark":
             try {
-                int ind = Integer.parseInt(comm[1]);
-                return taskList.markAsDone(ind);
+                int taskInd = Integer.parseInt(comm[1]);
+                return taskList.markAsDone(taskInd);
             } catch (OutOfListException e) {
                 return this.ui.display(this.ui.indent(e.getMessage()));
             } catch (NumberFormatException e) {
@@ -39,8 +39,8 @@ public class Command {
 
         case "unmark":
             try {
-                int ind = Integer.parseInt(comm[1]);
-                return taskList.markAsUndone(ind);
+                int taskInd = Integer.parseInt(comm[1]);
+                return taskList.markAsUndone(taskInd);
             } catch (OutOfListException e) {
                 return this.ui.display(this.ui.indent(e.getMessage()));
             } catch (NumberFormatException e) {
@@ -86,7 +86,7 @@ public class Command {
             }
 
         case "find":
-            // find the corresponding element
+            //finds tasks with component that contains the keyword.
             StringBuilder searchText = new StringBuilder();
             for (int i = 1; i < comm.length; i++) {
                 if (!searchText.isEmpty()) {

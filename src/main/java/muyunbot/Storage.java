@@ -8,10 +8,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import muyunbot.Tasks.Deadline;
-import muyunbot.Tasks.Event;
-import muyunbot.Tasks.Task;
-import muyunbot.Tasks.Todo;
+import muyunbot.tasks.Deadline;
+import muyunbot.tasks.Event;
+import muyunbot.tasks.Task;
+import muyunbot.tasks.Todo;
+
 
 /**
  * Handles writing and reading data from files.
@@ -45,7 +46,7 @@ public class Storage {
             if (f.mkdirs()) {
                 System.out.println("new directory created");
             } else {
-                System.out.println("Canno create new directory");
+                System.out.println("Cannot create new directory");
             }
         }
         //create File if it does not exist;

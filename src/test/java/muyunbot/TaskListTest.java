@@ -1,7 +1,8 @@
 package muyunbot;
 
-import muyunbot.Tasks.Task;
-import muyunbot.Tasks.Todo;
+import muyunbot.tasks.Task;
+import muyunbot.tasks.Todo;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
