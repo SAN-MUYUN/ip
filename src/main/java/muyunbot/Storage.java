@@ -8,10 +8,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import muyunbot.classes.Deadline;
-import muyunbot.classes.Event;
-import muyunbot.classes.Task;
-import muyunbot.classes.Todo;
+import muyunbot.Tasks.Deadline;
+import muyunbot.Tasks.Event;
+import muyunbot.Tasks.Task;
+import muyunbot.Tasks.Todo;
 
 /**
  * Handles writing and reading data from files.
@@ -78,18 +78,18 @@ public class Storage {
      * Writes all tasks in the list into the file.
      * @param list a list containing all the tasks.
      */
-    public void updateFile(ArrayList<Task> list) {
+    public void updateFile(ArrayList<Task> list) throws IOException {
         StringBuilder updatedContent = new StringBuilder();
+        File file = new File(this.FILEPATH);
+        assert file.exists() : "file does not exist";
         for (Task task : list) {
             updatedContent.append(task.toObjStr() + System.lineSeparator());
         }
-        try {
-            FileWriter fw = new FileWriter(this.FILEPATH);
-            fw.write(updatedContent.toString());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
+        FileWriter fw = new FileWriter(file);
+        fw.write(updatedContent.toString());
+        fw.close();
+
     }
 
     /**

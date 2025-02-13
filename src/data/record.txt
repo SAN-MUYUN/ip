@@ -1,3 +1,2 @@
 T|1|buy books
-T|0|buy some groceries
-T|0|return book
+T|1|buy some groceries
