@@ -3,10 +3,10 @@ package muyunbot;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import muyunbot.exceptions.NoContentException;
 import muyunbot.tasks.Deadline;
 import muyunbot.tasks.Event;
 import muyunbot.tasks.Todo;
+
 
 
 /**
@@ -31,6 +31,7 @@ public class Parser {
      * @return Returns the new MuyunBot.classes.Todo created.
      */
     public Todo createTodo(String[] inputArr) throws NoContentException {
+        assert inputArr[0].equalsIgnoreCase("todo") : "creating wrong task";
         StringBuilder descr = new StringBuilder();
         if (inputArr.length == 1) {
             throw new NoContentException("I see you want to do something, "
@@ -50,6 +51,7 @@ public class Parser {
      * @return Returns the new MuyunBot.classes.Deadline created.
      */
     public Deadline createDeadline(String[] inputArr) throws NoContentException {
+        assert inputArr[0].equalsIgnoreCase("deadline") : "creating wrong task";
         if (inputArr.length == 1) {
             throw new NoContentException("I see a deadline is approaching, "
                     + "what exactly is this task about?");
@@ -83,6 +85,7 @@ public class Parser {
      * @throws NoContentException If elements are missing from user input.
      */
     public Event createEvent(String[] inputArr) throws NoContentException {
+        assert inputArr[0].equalsIgnoreCase("event") : "creating wrong task";
         if (inputArr.length == 1) {
             throw new NoContentException("I see you want to create an event, "
                     + "what exactly is this task about?");
@@ -117,8 +120,12 @@ public class Parser {
      * @param input User input.
      * @return String array after splitting the input.
      */
-    public String[] generateCommand(String input) {
-        return input.split(" ");
+    public String[] generateCommand(String input) throws NoContentException {
+        String[] commandArray = input.split(" ");
+        if (commandArray.length == 0) {
+            throw new NoContentException("Sorry I didn't hear you clearly, please input a valid command");
+        }
+        return commandArray;
     }
 
 

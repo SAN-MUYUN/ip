@@ -1,8 +1,9 @@
 package muyunbot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import muyunbot.exceptions.OutOfListException;
+
 import muyunbot.tasks.Task;
 
 
@@ -43,6 +44,7 @@ public class TaskList {
      * @param newTask New Task to be added to the task list
      */
     protected String addTask(Task newTask) {
+        assert this.TASKLIST != null : "TaskList not initialzed";
         TASK_LIST.add(newTask);
         String text = this.ui.indent("new task is here!")
                 + this.ui.indent("added: " + newTask.toString())
@@ -57,15 +59,15 @@ public class TaskList {
      * @exception OutOfListException when index is larger than number of Tasks.
      */
     protected String markAsDone(int ind) throws OutOfListException {
-        if (ind > TASK_LIST.size()) {
-            throw new OutOfListException("Task number "
-                    + ind
-                    + " is out of the list of size " + TASK_LIST.size() + ", please double check your index~");
-        }
+        checkInd(ind);
         TASK_LIST.get(ind - 1).markAsDone();
         String text = this.ui.indent("well done, 1 task down!\n");
         text += this.ui.indent(TASK_LIST.get(ind - 1).toString());
-        this.storage.updateFile(TASK_LIST);
+        try {
+            this.storage.updateFile(TASK_LIST);
+        } catch (IOException e) {
+            return "Error updating file";
+        }
         return this.ui.display(text);
 
 
@@ -77,15 +79,15 @@ public class TaskList {
      * @exception OutOfListException when index is larger than number of Tasks.
      */
     protected String markAsUndone(int ind) throws OutOfListException {
-        if (ind > TASK_LIST.size()) {
-            throw new OutOfListException("index "
-                    + ind
-                    + " is out of the list, please double check your index~");
-        }
+        checkInd(ind);
         TASK_LIST.get(ind - 1).markNotDone();
         String text = this.ui.indent("oops, seems like this task isn't done yet...\n");
         text += this.ui.indent(TASK_LIST.get(ind - 1).toString());
-        this.storage.updateFile(TASK_LIST);
+        try {
+            this.storage.updateFile(TASK_LIST);
+        } catch (IOException e) {
+            return "Error writing to file";
+        }
         return this.ui.display(text);
     }
 
@@ -107,16 +109,18 @@ public class TaskList {
      * @throws OutOfListException if ind exceeds the size of the ArrayList TASK_LIST.
      */
     protected String delete(int ind) throws OutOfListException {
-        if (ind > TASK_LIST.size()) {
-            throw new OutOfListException("index " + ind + " is out of the list,"
-                    + " please double check your index~");
-        }
-        Task toBeRemoved = TASK_LIST.get(ind - 1);
+        checkInd(ind);
+        Task toBeRemoved = TASKLIST.get(ind - 1);
         TASK_LIST.remove(ind - 1);
         String text = this.ui.indent("I am removing this task:")
                 + this.ui.indent(toBeRemoved.toString())
                 + this.ui.indent("Now there are " + TASK_LIST.size() + " tasks in the list");
-        this.storage.updateFile(TASK_LIST);
+        try {
+            this.storage.updateFile(TASK_LIST);
+        } catch (IOException e) {
+            return "error updating file.";
+        }
+
         return this.ui.display(text);
     }
 
@@ -129,5 +133,15 @@ public class TaskList {
 
         }
         return this.ui.display(listContent.toString());
+    }
+
+    protected void checkInd(int ind) throws OutOfListException {
+        if (ind > TASKLIST.size()) {
+            throw new OutOfListException("index "
+                    + ind
+                    + " is out of the list, please double check your index~");
+        } else if (ind <= 0) {
+            throw new OutOfListException("Task number should be greater than 0");
+        }
     }
 }
