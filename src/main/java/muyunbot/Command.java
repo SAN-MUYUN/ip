@@ -22,7 +22,9 @@ public class Command {
      * @param parser Parser that is used to understand the commands and create tasks accordingly.
      */
     protected String execute(String[] comm, TaskList taskList, Parser parser) {
-        switch (comm[0]) {
+        assert comm != null && comm.length > 0 : "Command array cannot be null or empty";
+
+        switch (comm[0].toLowerCase()) {
         case "list":
             return taskList.showList();
         case "mark":

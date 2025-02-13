@@ -35,6 +35,7 @@ public class Ui {
      */
     public String display(String text) {
         // display x in proper style;
+        assert text != null : "text is null";
         String textToDisplay = this.dashedLines()
                 + text
                 + this.dashedLines();

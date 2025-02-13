@@ -1,6 +1,7 @@
 package muyunbot;
 
 import javafx.scene.layout.VBox;
+import muyunbot.exceptions.NoContentException;
 
 import java.util.Scanner;
 
@@ -51,8 +52,13 @@ public class MuyunBot {
         greet();
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
-            String[] comms = parser.generateCommand(input);
-            c.execute(comms, this.taskList, this.parser);
+            try {
+                String[] comms = parser.generateCommand(input);
+                c.execute(comms, this.taskList, this.parser);
+            } catch (NoContentException e) {
+                ui.display(e.getMessage());
+            }
+
             input = scanner.nextLine();
         }
         quit();
@@ -60,8 +66,12 @@ public class MuyunBot {
 
     public String getResponse(String input) {
         Command c = new Command(new Ui());
-        String[] comms = parser.generateCommand(input);
-        return c.execute(comms, this.taskList, this.parser);
+        try {
+            String[] comms = parser.generateCommand(input);
+            return c.execute(comms, this.taskList, this.parser);
+        } catch (NoContentException e) {
+            return e.getMessage();
+        }
     }
 
     public static void main(String[] args) {

@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private MuyunBot bot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DukeBot.jpg"));
 
     @FXML
     public void initialize() {
@@ -56,12 +56,12 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        if (input.equals("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
 
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> {
-                // Code to execute after the pause
-                Platform.exit(); // This will close the application
+                //Closes the app after waiting.
+                Platform.exit();
             });
             delay.play();
         }
