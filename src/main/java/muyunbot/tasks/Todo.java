@@ -1,5 +1,8 @@
-package muyunbot.classes;
+package muyunbot.tasks;
 
+/**
+ * Provides a class for Todo tasks.
+ */
 public class Todo extends Task {
 
     private static final String SYMBOL = "T";
@@ -7,6 +10,11 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * Constructs a new Todo object
+     * @param description description for the new Todo task.
+     * @param isDone Status of the new task as completed, or not completed.
+     */
     public Todo(String description, boolean isDone) {
         super(description);
         this.isDone = isDone;

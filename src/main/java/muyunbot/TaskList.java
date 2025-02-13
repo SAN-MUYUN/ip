@@ -2,8 +2,9 @@ package muyunbot;
 
 import java.util.ArrayList;
 
-import muyunbot.classes.Task;
 import muyunbot.exceptions.OutOfListException;
+import muyunbot.tasks.Task;
+
 
 /**
  * Represents the task list with methods to handle the tasks in the task list.
@@ -11,7 +12,7 @@ import muyunbot.exceptions.OutOfListException;
 public class TaskList {
 
     /** ArrayList containing all the tasks */
-    private final ArrayList<Task> TASKLIST;
+    private final ArrayList<Task> TASK_LIST;
     private Storage storage;
     private Ui ui;
 
@@ -20,7 +21,7 @@ public class TaskList {
      * @param storage Storage object used to write to files.
      */
     public TaskList(Storage storage, Ui ui) {
-        this.TASKLIST = new ArrayList<>();
+        this.TASK_LIST = new ArrayList<>();
         this.storage = storage;
         this.ui = ui;
     }
@@ -32,7 +33,7 @@ public class TaskList {
      */
     public TaskList(Storage storage, ArrayList<Task> list, Ui ui) {
         this.storage = storage;
-        this.TASKLIST = list;
+        this.TASK_LIST = list;
         this.ui = ui;
     }
 
@@ -42,88 +43,88 @@ public class TaskList {
      * @param newTask New Task to be added to the task list
      */
     protected String addTask(Task newTask) {
-        TASKLIST.add(newTask);
+        TASK_LIST.add(newTask);
         String text = this.ui.indent("new task is here!")
                 + this.ui.indent("added: " + newTask.toString())
-                + this.ui.indent("now we have " + TASKLIST.size() + " tasks in the list");
+                + this.ui.indent("now we have " + TASK_LIST.size() + " tasks in the list");
         this.storage.writeFile(newTask.toObjStr());
         return this.ui.display(text);
     }
 
     /**
-     * Marks a task with index ind in TASKLIST as done. Displays a message after marking as done.
-     * @param ind index to be marked as done in the TASKLIST.
+     * Marks a task with index ind in TASK_LIST as done. Displays a message after marking as done.
+     * @param ind index to be marked as done in the TASK_LIST.
      * @exception OutOfListException when index is larger than number of Tasks.
      */
     protected String markAsDone(int ind) throws OutOfListException {
-        if (ind > TASKLIST.size()) {
+        if (ind > TASK_LIST.size()) {
             throw new OutOfListException("Task number "
                     + ind
-                    + " is out of the list of size " + TASKLIST.size() + ", please double check your index~");
+                    + " is out of the list of size " + TASK_LIST.size() + ", please double check your index~");
         }
-        TASKLIST.get(ind - 1).markAsDone();
+        TASK_LIST.get(ind - 1).markAsDone();
         String text = this.ui.indent("well done, 1 task down!\n");
-        text += this.ui.indent(TASKLIST.get(ind - 1).toString());
-        this.storage.updateFile(TASKLIST);
+        text += this.ui.indent(TASK_LIST.get(ind - 1).toString());
+        this.storage.updateFile(TASK_LIST);
         return this.ui.display(text);
 
 
     }
 
     /**
-     * Marks a task in TASKLIST as undone. Displays a message after that.
-     * @param ind index to be marked as undone in the TASKLIST.
+     * Marks a task in TASK_LIST as undone. Displays a message after that.
+     * @param ind index to be marked as undone in the TASK_LIST.
      * @exception OutOfListException when index is larger than number of Tasks.
      */
     protected String markAsUndone(int ind) throws OutOfListException {
-        if (ind > TASKLIST.size()) {
+        if (ind > TASK_LIST.size()) {
             throw new OutOfListException("index "
                     + ind
                     + " is out of the list, please double check your index~");
         }
-        TASKLIST.get(ind - 1).markNotDone();
+        TASK_LIST.get(ind - 1).markNotDone();
         String text = this.ui.indent("oops, seems like this task isn't done yet...\n");
-        text += this.ui.indent(TASKLIST.get(ind - 1).toString());
-        this.storage.updateFile(TASKLIST);
+        text += this.ui.indent(TASK_LIST.get(ind - 1).toString());
+        this.storage.updateFile(TASK_LIST);
         return this.ui.display(text);
     }
 
     /**
-     * Displays the content in the TASKLIST.
+     * Displays the content in the TASK_LIST.
      */
     protected String showList() {
         StringBuilder listContent = new StringBuilder();
-        for (int i = 0; i < TASKLIST.size(); i++) {
-            listContent.append(this.ui.indent((i + 1) + ". " + TASKLIST.get(i).toString()));
+        for (int i = 0; i < TASK_LIST.size(); i++) {
+            listContent.append(this.ui.indent((i + 1) + ". " + TASK_LIST.get(i).toString()));
         }
         return this.ui.display(listContent.toString());
 
     }
 
     /**
-     * Deletes a task from the TASKLIST.
+     * Deletes a task from the TASK_LIST.
      * @param ind task index to be deleted
-     * @throws OutOfListException if ind exceeds the size of the ArrayList TASKLIST.
+     * @throws OutOfListException if ind exceeds the size of the ArrayList TASK_LIST.
      */
     protected String delete(int ind) throws OutOfListException {
-        if (ind > TASKLIST.size()) {
+        if (ind > TASK_LIST.size()) {
             throw new OutOfListException("index " + ind + " is out of the list,"
                     + " please double check your index~");
         }
-        Task toBeRemoved = TASKLIST.get(ind - 1);
-        TASKLIST.remove(ind - 1);
+        Task toBeRemoved = TASK_LIST.get(ind - 1);
+        TASK_LIST.remove(ind - 1);
         String text = this.ui.indent("I am removing this task:")
                 + this.ui.indent(toBeRemoved.toString())
-                + this.ui.indent("Now there are " + TASKLIST.size() + " tasks in the list");
-        this.storage.updateFile(TASKLIST);
+                + this.ui.indent("Now there are " + TASK_LIST.size() + " tasks in the list");
+        this.storage.updateFile(TASK_LIST);
         return this.ui.display(text);
     }
 
     protected String find(String text) {
         StringBuilder listContent = new StringBuilder();
-        for (int i = 0; i < TASKLIST.size(); i++) {
-            if (TASKLIST.get(i).describe().contains(text)) {
-                listContent.append(this.ui.indent((i + 1) + ". " + TASKLIST.get(i).toString()));
+        for (int i = 0; i < TASK_LIST.size(); i++) {
+            if (TASK_LIST.get(i).describe().contains(text)) {
+                listContent.append(this.ui.indent((i + 1) + ". " + TASK_LIST.get(i).toString()));
             }
 
         }

@@ -1,4 +1,4 @@
-package muyunbot.classes;
+package muyunbot.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

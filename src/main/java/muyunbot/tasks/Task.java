@@ -1,4 +1,4 @@
-package muyunbot.classes;
+package muyunbot.tasks;
 
 import muyunbot.Ui;
 
@@ -20,10 +20,16 @@ public abstract class Task {
         this.ui = new Ui();
     }
 
+    /**
+     * Sets the status of a task as completed.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Sets the status of a task as incomplete.
+     */
     public void markNotDone() {
         this.isDone = false;
     }

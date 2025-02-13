@@ -1,6 +1,6 @@
 package muyunbot;
 
-import muyunbot.classes.Todo;
+import muyunbot.tasks.Todo;
 import muyunbot.exceptions.NoContentException;
 import org.junit.jupiter.api.Test;
 

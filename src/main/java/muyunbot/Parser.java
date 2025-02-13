@@ -3,10 +3,11 @@ package muyunbot;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import muyunbot.classes.Deadline;
-import muyunbot.classes.Event;
-import muyunbot.classes.Todo;
 import muyunbot.exceptions.NoContentException;
+import muyunbot.tasks.Deadline;
+import muyunbot.tasks.Event;
+import muyunbot.tasks.Todo;
+
 
 /**
  * Parses the user inputs.
