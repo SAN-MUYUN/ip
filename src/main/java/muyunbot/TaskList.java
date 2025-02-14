@@ -3,7 +3,7 @@ package muyunbot;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+import muyunbot.exceptions.OutOfListException;
 import muyunbot.tasks.Task;
 
 
@@ -44,7 +44,7 @@ public class TaskList {
      * @param newTask New Task to be added to the task list
      */
     protected String addTask(Task newTask) {
-        assert this.TASKLIST != null : "TaskList not initialzed";
+        assert this.TASK_LIST != null : "TaskList not initialzed";
         TASK_LIST.add(newTask);
         String text = this.ui.indent("new task is here!")
                 + this.ui.indent("added: " + newTask.toString())
@@ -110,7 +110,7 @@ public class TaskList {
      */
     protected String delete(int ind) throws OutOfListException {
         checkInd(ind);
-        Task toBeRemoved = TASKLIST.get(ind - 1);
+        Task toBeRemoved = TASK_LIST.get(ind - 1);
         TASK_LIST.remove(ind - 1);
         String text = this.ui.indent("I am removing this task:")
                 + this.ui.indent(toBeRemoved.toString())
@@ -136,7 +136,7 @@ public class TaskList {
     }
 
     protected void checkInd(int ind) throws OutOfListException {
-        if (ind > TASKLIST.size()) {
+        if (ind > TASK_LIST.size()) {
             throw new OutOfListException("index "
                     + ind
                     + " is out of the list, please double check your index~");

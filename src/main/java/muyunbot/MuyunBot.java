@@ -2,6 +2,9 @@ package muyunbot;
 
 import java.util.Scanner;
 
+import muyunbot.exceptions.NoContentException;
+
+
 /**
  * Represents the model of the chat bot.
  */
