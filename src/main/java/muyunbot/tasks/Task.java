@@ -1,6 +1,9 @@
 package muyunbot.tasks;
 
 import muyunbot.Ui;
+import muyunbot.exceptions.NoTaskPropertyException;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * Provides an abstraction for all the tasks managed by the bot.
@@ -49,5 +52,13 @@ public abstract class Task {
     }
 
     public abstract String toObjStr();
+
+    /**
+     * Updates the description of the task to a new description.
+     * @param updateInfo String array of 2 elements, first element contains the property to be updated
+     *                   the second element contains the information to be updated.
+     * @return return a string output when after updating the description.
+     */
+    public abstract void update(String[] updateInfo) throws NoTaskPropertyException;
 
 }

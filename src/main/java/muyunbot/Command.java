@@ -1,8 +1,10 @@
 package muyunbot;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import muyunbot.exceptions.NoContentException;
+import muyunbot.exceptions.NoTaskPropertyException;
 import muyunbot.exceptions.OutOfListException;
 
 /**
@@ -95,6 +97,15 @@ public class Command {
                 searchText.append(comm[i]);
             }
             return taskList.find(searchText.toString());
+
+        case "update":
+            int taskInd = Integer.parseInt(comm[1]);
+            try {
+                ArrayList<String[]> toBeUpdated = parser.parseUpdate(comm);
+                return taskList.update(taskInd, toBeUpdated);
+            } catch (OutOfListException | NoTaskPropertyException | NoContentException e) {
+                return this.ui.display(this.ui.indent(e.getMessage()));
+            }
         case "bye":
             return this.ui.display(this.ui.indent("Goodbye! Hope to see you soon!"));
         default:

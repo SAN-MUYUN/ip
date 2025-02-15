@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import muyunbot.Parser;
+import muyunbot.exceptions.NoTaskPropertyException;
 
 /**
  * Provides the model for tasks with deadline
@@ -33,6 +34,18 @@ public class Deadline extends Task {
     public String toObjStr() {
         return (SYMBOL + "|" + (this.isDone ? "1" : "0") + "|" + this.description
             + "|" + this.deadLine);
+    }
+
+    @Override
+    public void update(String[] updateInfo) throws NoTaskPropertyException, DateTimeParseException {
+        assert updateInfo.length == 2 : "updateInfo in wrong format";
+        if (updateInfo[0].equals("description")) {
+            this.description = updateInfo[1];
+        } else if (updateInfo[0].equals("deadline")) {
+            this.deadLine = Parser.parseDate(updateInfo[1]);
+        } else {
+            throw new NoTaskPropertyException("No Such Attribute: " + updateInfo[0] + " in Todo");
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import muyunbot.Parser;
+import muyunbot.exceptions.NoTaskPropertyException;
 
 
 /**
@@ -40,11 +41,23 @@ public class Event extends Task {
     }
 
     @Override
+    public void update(String[] updateInfo) throws NoTaskPropertyException, DateTimeParseException {
+        assert updateInfo.length == 2 : "wrong update info format";
+        if (updateInfo[0].equals("description")) {
+            this.description = updateInfo[1];
+        } else if (updateInfo[0].equals("startTime")) {
+            this.startTime = Parser.parseDate(updateInfo[1]);
+        } else if (updateInfo[0].equals("endTime")) {
+            this.endTime = Parser.parseDate(updateInfo[1]);
+        } else {
+            throw new NoTaskPropertyException("No Such Attribute: " + updateInfo[0] + " in Todo");
+        }
+    }
+    @Override
     public String toString() {
         return "[" + SYMBOL + "]" + super.toString()
                 + " (from: " + this.ui.displayDate(this.startTime)
                 + " to: " + this.ui.displayDate(this.endTime) + ")";
     }
-
 
 }

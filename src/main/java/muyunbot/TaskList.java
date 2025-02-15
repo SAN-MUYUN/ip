@@ -3,6 +3,7 @@ package muyunbot;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import muyunbot.exceptions.NoTaskPropertyException;
 import muyunbot.exceptions.OutOfListException;
 import muyunbot.tasks.Task;
 
@@ -133,6 +134,29 @@ public class TaskList {
 
         }
         return this.ui.display(listContent.toString());
+    }
+
+    /**
+     * Updates the content of a particular task.
+     * @param ind Index of task to be updated
+     * @param updateInfo Information about what to update and content of the new input.
+     * @return String output from the update.
+     */
+    protected String update(int ind, ArrayList<String[]> updateInfo) throws OutOfListException,
+            NoTaskPropertyException {
+        checkInd(ind);
+        Task toBeUpdated = TASK_LIST.get(ind - 1);
+        for (String[] info : updateInfo) {
+            toBeUpdated.update(info);
+        }
+        try {
+            storage.updateFile(TASK_LIST);
+        } catch (IOException e) {
+            return "Error updating file.";
+        }
+        String output = ui.indent("updated: ")
+                + ui.indent(toBeUpdated.toString());
+        return this.ui.display(output);
     }
 
     protected void checkInd(int ind) throws OutOfListException {

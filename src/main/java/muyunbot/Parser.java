@@ -2,6 +2,7 @@ package muyunbot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import muyunbot.exceptions.NoContentException;
 import muyunbot.tasks.Deadline;
@@ -127,6 +128,53 @@ public class Parser {
             throw new NoContentException("Sorry I didn't hear you clearly, please input a valid command");
         }
         return commandArray;
+    }
+
+    /**
+     * Parses the input into a list of strings to facilitate update
+     * @param inputArr
+     * @return An ArrayList of 2 elements string arrays, the first element is the property label of a task to be
+     *     updated, second element is the new content to update.
+     * @throws NoContentException
+     */
+    public ArrayList<String[]> parseUpdate(String[] inputArr) throws NoContentException {
+        ArrayList<String[]> listOfUpdates = new ArrayList<>();
+        String label = "description";
+        StringBuilder content = new StringBuilder();
+        if (inputArr.length <= 2) {
+            throw new NoContentException("Missing content for update");
+        }
+        for (int i = 2; i < inputArr.length; i++) {
+            // Labels the property to be updated.
+            if (inputArr[i].equals("/by")) {
+                appendUpdate(listOfUpdates, label, content);
+                label = "deadline";
+                content = new StringBuilder();
+                continue;
+            } else if (inputArr[i].equals("/from")) {
+                appendUpdate(listOfUpdates, label, content);
+                label = "startTime";
+                content = new StringBuilder();
+                continue;
+            } else if (inputArr[i].equals("/to")) {
+                appendUpdate(listOfUpdates, label, content);
+                label = "endTime";
+                content = new StringBuilder();
+                continue;
+            } else if (inputArr[i].split("")[0].equals("/")) {
+                throw new NoContentException("wrong update command");
+            }
+            content.append(" " + inputArr[i]);
+
+        }
+        appendUpdate(listOfUpdates, label, content);
+        return listOfUpdates;
+    }
+    private void appendUpdate(ArrayList<String[]> listOfUpdates, String label, StringBuilder content)
+            throws NoContentException {
+        if (!content.isEmpty()) {
+            listOfUpdates.add(new String[]{label, content.toString().trim()});
+        }
     }
 
 
