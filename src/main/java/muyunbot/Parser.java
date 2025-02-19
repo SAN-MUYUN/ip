@@ -17,7 +17,7 @@ import muyunbot.tasks.Todo;
 public class Parser {
 
     /**
-     * parse the dateString input from user into a LocalDate object
+     * Parses the dateString input from user into a LocalDate object
      * @param dateString user input for datetime
      * @return a LocalDate object by parsing the dateString
      * @throws DateTimeParseException if dateString is invalid
