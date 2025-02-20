@@ -50,7 +50,7 @@ public class Event extends Task {
         } else if (updateInfo[0].equals("endTime")) {
             this.endTime = Parser.parseDate(updateInfo[1]);
         } else {
-            throw new NoTaskPropertyException("No Such Attribute: " + updateInfo[0] + " in Todo");
+            throw new NoTaskPropertyException("No Such Attribute: " + updateInfo[0] + " in Event");
         }
     }
     @Override

@@ -59,4 +59,21 @@ public class ParserTest {
             fail();
         }
     }
+
+    @Test
+    public void createTodo_invalidInput_emptyBody() {
+        Parser sut = new Parser();
+        Todo expected = new Todo("testing");
+        String[] testInput = {"todo"};
+
+        // creates a new Todo object using testInput, then test to see if the content of the 2 Todo Objects
+        // have the same String representation and the same ObjStr representation.
+        try {
+            Todo output;
+            output = sut.createTodo(testInput);
+            fail();
+        } catch (NoContentException e) {
+            assertEquals("I see you want to do something, what exactly is this task about?", e.getMessage());
+        }
+    }
 }

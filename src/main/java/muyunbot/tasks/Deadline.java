@@ -44,7 +44,7 @@ public class Deadline extends Task {
         } else if (updateInfo[0].equals("deadline")) {
             this.deadLine = Parser.parseDate(updateInfo[1]);
         } else {
-            throw new NoTaskPropertyException("No Such Attribute: " + updateInfo[0] + " in Todo");
+            throw new NoTaskPropertyException("No Such Attribute: " + updateInfo[0] + " in Deadline");
         }
     }
 
