@@ -3,9 +3,9 @@ A personal **desktop planner** that helps you to keep track of daily tasks!
 
 ![](Ui.png)
 
-##Quick Start
+## Quick Start
 1. Ensure you have java 17 installed.
-2. Download the latest .jar file from [here]()
+2. Download the latest .jar file from [here](https://github.com/SAN-MUYUN/ip/releases/tag/A-UserGuide)
 3. Copy the file to the folder you want to use as the home folder for your app.
 4. Open a command terminal, ```cd``` into the folder you put the jar file in. 
 5. Run ```java -jar MuyunBot.jar``` command to run the application.
