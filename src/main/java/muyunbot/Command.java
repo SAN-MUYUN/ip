@@ -71,7 +71,7 @@ public class Command {
             } catch (NoContentException e) {
                 return this.ui.display(this.ui.indent(e.getMessage()));
             } catch (DateTimeParseException e) {
-                return this.ui.display(this.ui.indent("Please input deadline following format yyyy-mm-dd"));
+                return this.ui.display(this.ui.indent("Please input the time following format yyyy-mm-dd"));
             } catch (ArrayIndexOutOfBoundsException e) {
                 return this.ui.display(this.ui.indent("Please input the correct format:"
                         + "event {description} /from {start time} /to {end time}"));
