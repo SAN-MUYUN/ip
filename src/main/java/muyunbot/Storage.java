@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import muyunbot.exceptions.TimeTravelException;
 import muyunbot.tasks.Deadline;
 import muyunbot.tasks.Event;
 import muyunbot.tasks.Task;
@@ -99,7 +100,7 @@ public class Storage {
      * @return Task
      * @throws DateTimeParseException If datetime in the content cannot be parsed into LocalDate object.
      */
-    public Task strToTask(String content) throws DateTimeParseException {
+    public Task strToTask(String content) throws DateTimeParseException, TimeTravelException {
 
         String[] parsed = content.split("\\|");
         String symbol = parsed[0];
@@ -122,7 +123,7 @@ public class Storage {
      * @throws FileNotFoundException If the FILEPATH is invalid and cannot be reached
      * @throws DateTimeParseException If the DateTime passed in by user cannot be parsed properly
      */
-    public ArrayList<Task> syncTaskList() throws FileNotFoundException, DateTimeParseException {
+    public ArrayList<Task> syncTaskList() throws FileNotFoundException, DateTimeParseException, TimeTravelException {
         File f = new File(FILEPATH); // create a File for the given file path
         Scanner s = new Scanner(f);
         ArrayList<Task> result = new ArrayList<>();
@@ -157,6 +158,8 @@ public class Storage {
         } catch (DateTimeParseException e) {
             this.ui.display("File is corrupted, deleting current file and creating new file");
             this.rebuildFile();
+        } catch (TimeTravelException e) {
+            this.ui.display("File is corrupted, deleting current file and creating new file");
         }
         return new TaskList(storage, this.ui);
     }

@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import muyunbot.exceptions.NoContentException;
+import muyunbot.exceptions.TimeTravelException;
 import muyunbot.tasks.Deadline;
 import muyunbot.tasks.Event;
 import muyunbot.tasks.Todo;
@@ -86,7 +87,7 @@ public class Parser {
      * @return A new Event object built from info in the inputArr.
      * @throws NoContentException If elements are missing from user input.
      */
-    public Event createEvent(String[] inputArr) throws NoContentException {
+    public Event createEvent(String[] inputArr) throws NoContentException, TimeTravelException {
         assert inputArr[0].equalsIgnoreCase("event") : "creating wrong task";
         if (inputArr.length == 1) {
             throw new NoContentException("I see you want to create an event, "

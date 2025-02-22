@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import muyunbot.Parser;
 import muyunbot.exceptions.NoTaskPropertyException;
+import muyunbot.exceptions.TimeTravelException;
 
 
 /**
@@ -23,10 +24,17 @@ public class Event extends Task {
      * @param isDone whether the task is done.
      * @throws DateTimeParseException If time passed is in the wrong format and cannot be parsed properly.
      */
-    public Event(String description, String startTime, String endTime, boolean isDone) throws DateTimeParseException {
+    public Event(String description, String startTime, String endTime, boolean isDone)
+            throws DateTimeParseException, TimeTravelException {
         super(description);
-        this.startTime = Parser.parseDate(startTime.trim());
-        this.endTime = Parser.parseDate(endTime.trim());
+        LocalDate start = Parser.parseDate(startTime.trim());
+        LocalDate end = Parser.parseDate(endTime.trim());
+        if (end.isBefore(start)) {
+            throw new TimeTravelException("You probably should start before you end, unless you send a signal "
+                    + "faster than light!");
+        }
+        this.startTime = start;
+        this.endTime = end;
         this.isDone = isDone;
     }
 

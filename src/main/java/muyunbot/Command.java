@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import muyunbot.exceptions.NoContentException;
 import muyunbot.exceptions.NoTaskPropertyException;
 import muyunbot.exceptions.OutOfListException;
+import muyunbot.exceptions.TimeTravelException;
 
 /**
  * Handles the commands generated from user input.
@@ -68,7 +69,7 @@ public class Command {
         case "event":
             try {
                 return taskList.addTask(parser.createEvent(comm));
-            } catch (NoContentException e) {
+            } catch (NoContentException | TimeTravelException e) {
                 return this.ui.display(this.ui.indent(e.getMessage()));
             } catch (DateTimeParseException e) {
                 return this.ui.display(this.ui.indent("Please input the time following format yyyy-mm-dd"));
