@@ -23,7 +23,12 @@ public class MuyunBot {
         this.ui = new Ui();
         this.storage = new Storage(this.ui);
         this.parser = new Parser();
-        this.taskList = this.storage.sync(this.storage);
+        try {
+            this.taskList = this.storage.sync(this.storage);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.storage.rebuildFile();
+            this.taskList = new TaskList(this.storage, this.ui);
+        }
     }
 
 

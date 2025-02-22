@@ -123,7 +123,8 @@ public class Storage {
      * @throws FileNotFoundException If the FILEPATH is invalid and cannot be reached
      * @throws DateTimeParseException If the DateTime passed in by user cannot be parsed properly
      */
-    public ArrayList<Task> syncTaskList() throws FileNotFoundException, DateTimeParseException, TimeTravelException {
+    public ArrayList<Task> syncTaskList() throws FileNotFoundException, DateTimeParseException, TimeTravelException,
+            IndexOutOfBoundsException {
         File f = new File(FILEPATH); // create a File for the given file path
         Scanner s = new Scanner(f);
         ArrayList<Task> result = new ArrayList<>();
